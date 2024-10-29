@@ -1,43 +1,29 @@
+<?php
+session_start(); // Iniciar sesión
+
+// Si el usuario no ha iniciado sesión, redirigir a login.php
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: login/login.php");
+    exit(); // Asegurarse de detener la ejecución del script
+}
+?>
+
+
+
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gestión Interna de Cinemark</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            color: #333;
-        }
-        .menu {
-            margin-bottom: 20px;
-        }
-        .menu a {
-            margin-right: 15px;
-            text-decoration: none;
-            color: #007BFF;
-        }
-        .menu a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Gestión de Cine</title>
 </head>
 <body>
+    <h1>Bienvenido al Sistema de Gestión de Cine</h1>
+    <ul>
+        <li><a href="pages/peliculas.php">Administrar Películas</a></li>
+        <li><a href="pages/salas.php">Administrar Salas</a></li>
+        <li><a href="pages/funciones.php">Administrar Funciones</a></li>
+        <li><a href="pages/usuarios.php">Administrar Usuarios</a></li>
+        <li><a href="login/logout.php">Cerrar Sesión</a></li> 
 
-<h1>Sistema de Gestión Interna de Cinemark</h1>
-
-<div class="menu">
-    <a href="views/salas.php">Gestión de Salas</a>
-    <a href="views/peliculas.php">Gestión de Películas</a>
-    <!-- Puedes agregar más enlaces a otras secciones aquí -->
-</div>
-
-<p>Bienvenido al sistema de gestión interna de Cinemark. Utiliza el menú para acceder a las diferentes funcionalidades.</p>
-
+    </ul>
 </body>
 </html>
