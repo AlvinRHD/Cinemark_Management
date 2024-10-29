@@ -1,6 +1,7 @@
 <?php
 include_once '../config.php';
 
+
 // Función para eliminar un usuario
 function eliminarUsuario($id) {
     global $conexion;

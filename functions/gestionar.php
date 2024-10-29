@@ -3,6 +3,9 @@
 include_once '../config.php';
 include_once '../functions/gestionar.php';
 
+include_once '../index.php';
+
+
 //USUARIOS
 function agregarUsuario($nombre, $email, $contrasena, $rol) {
     global $conexion;
@@ -35,13 +38,27 @@ function obtenerUsuarios() {
 
 
 
-function agregarPelicula($titulo, $descripcion, $duracion, $clasificacion, $genero) {
+// function agregarPelicula($titulo, $descripcion, $duracion, $clasificacion, $genero) {
+//     global $conexion;
+//     $stmt = $conexion->prepare("INSERT INTO peliculas (titulo, descripcion, duracion, clasificacion, genero) VALUES (?, ?, ?, ?, ?)");
+//     $stmt->bind_param("ssiss", $titulo, $descripcion, $duracion, $clasificacion, $genero);
+//     $stmt->execute();
+//     $stmt->close();
+// }
+function agregarPelicula($titulo, $descripcion, $duracion, $clasificacion, $genero, $imagen) {
     global $conexion;
-    $stmt = $conexion->prepare("INSERT INTO peliculas (titulo, descripcion, duracion, clasificacion, genero) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssiss", $titulo, $descripcion, $duracion, $clasificacion, $genero);
+    
+    // Mueve la imagen subida a una carpeta específica
+    $nombreImagen = basename($imagen['name']);
+    $rutaImagen = "../uploads/" . $nombreImagen;
+    move_uploaded_file($imagen['tmp_name'], $rutaImagen);
+
+    $stmt = $conexion->prepare("INSERT INTO peliculas (titulo, descripcion, duracion, clasificacion, genero, imagen) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssisss", $titulo, $descripcion, $duracion, $clasificacion, $genero, $nombreImagen);
     $stmt->execute();
     $stmt->close();
 }
+
 
 
 function agregarSala($nombre, $capacidad) {
@@ -60,6 +77,20 @@ function agregarFuncion($id_pelicula, $id_sala, $horario, $fecha) {
     $stmt->execute();
     $stmt->close();
 }
+
+function obtenerFuncionesSemanaActual() {
+    global $conexion;
+    $query = "
+        SELECT f.*, p.titulo as pelicula, s.nombre as sala
+        FROM funciones f
+        JOIN peliculas p ON f.id_pelicula = p.id_pelicula
+        JOIN salas s ON f.id_sala = s.id_sala
+        WHERE YEARWEEK(f.fecha, 1) = YEARWEEK(CURDATE(), 1)
+        ORDER BY f.fecha, f.horario";
+    $result = $conexion->query($query);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
 
 
 function obtenerPeliculas() {

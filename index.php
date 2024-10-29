@@ -6,13 +6,19 @@ if (!isset($_SESSION['id_usuario'])) {
     header("Location: login/login.php");
     exit(); // Asegurarse de detener la ejecución del script
 }
+
+include_once 'config.php';
+include_once 'functions/gestionar.php';
+
+// Obtener funciones de la semana actual
+$funcionesSemana = obtenerFuncionesSemanaActual();
 ?>
 
-
-
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Cine</title>
 </head>
 <body>
@@ -23,7 +29,25 @@ if (!isset($_SESSION['id_usuario'])) {
         <li><a href="pages/funciones.php">Administrar Funciones</a></li>
         <li><a href="pages/usuarios.php">Administrar Usuarios</a></li>
         <li><a href="login/logout.php">Cerrar Sesión</a></li> 
-
     </ul>
+
+    <h2>Funciones de esta Semana</h2>
+    <?php if (!empty($funcionesSemana)): ?>
+        <ul>
+            <?php foreach ($funcionesSemana as $funcion): ?>
+                <li>
+                    <strong><?php echo $funcion['pelicula']; ?></strong><br>
+                    Sala: <?php echo $funcion['sala']; ?><br>
+                    Fecha: <?php echo date('d-m-Y', strtotime($funcion['fecha'])); ?><br>
+                    Horario: <?php echo $funcion['horario']; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p>No hay funciones programadas para esta semana.</p>
+    <?php endif; ?>
 </body>
 </html>
+
+
+

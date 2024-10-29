@@ -11,14 +11,35 @@ function actualizarUsuario($id, $nombre, $email, $contrasena, $rol) {
     $stmt->close();
 }
 
-// Actualizar película
-function actualizarPelicula($id, $titulo, $descripcion, $duracion, $clasificacion, $genero) {
+// // Actualizar película
+// function actualizarPelicula($id, $titulo, $descripcion, $duracion, $clasificacion, $genero) {
+//     global $conexion;
+//     $stmt = $conexion->prepare("UPDATE peliculas SET titulo = ?, descripcion = ?, duracion = ?, clasificacion = ?, genero = ? WHERE id_pelicula = ?");
+//     $stmt->bind_param("ssissi", $titulo, $descripcion, $duracion, $clasificacion, $genero, $id);
+//     $stmt->execute();
+//     $stmt->close();
+// }
+function actualizarPelicula($id, $titulo, $descripcion, $duracion, $clasificacion, $genero, $imagen) {
     global $conexion;
-    $stmt = $conexion->prepare("UPDATE peliculas SET titulo = ?, descripcion = ?, duracion = ?, clasificacion = ?, genero = ? WHERE id_pelicula = ?");
-    $stmt->bind_param("ssissi", $titulo, $descripcion, $duracion, $clasificacion, $genero, $id);
+
+    // Si se proporciona una nueva imagen, súbela y actualiza la ruta
+    if ($imagen['size'] > 0) {
+        $nombreImagen = basename($imagen['name']);
+        $rutaImagen = "../uploads/" . $nombreImagen;
+        move_uploaded_file($imagen['tmp_name'], $rutaImagen);
+
+        $stmt = $conexion->prepare("UPDATE peliculas SET titulo=?, descripcion=?, duracion=?, clasificacion=?, genero=?, imagen=? WHERE id_pelicula=?");
+        $stmt->bind_param("ssisssi", $titulo, $descripcion, $duracion, $clasificacion, $genero, $nombreImagen, $id);
+    } else {
+        // Si no hay nueva imagen, solo actualiza los otros campos
+        $stmt = $conexion->prepare("UPDATE peliculas SET titulo=?, descripcion=?, duracion=?, clasificacion=?, genero=? WHERE id_pelicula=?");
+        $stmt->bind_param("ssissi", $titulo, $descripcion, $duracion, $clasificacion, $genero, $id);
+    }
+
     $stmt->execute();
     $stmt->close();
 }
+
 
 
 
