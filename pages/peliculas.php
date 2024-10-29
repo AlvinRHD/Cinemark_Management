@@ -1,13 +1,14 @@
 <?php
 session_start();
 if (!isset($_SESSION['id_usuario'])) {
-    header("Location: ../auth/login.php");
+    header("Location: ../login/login.php");
     exit();
 }
 
 include_once '../config.php';
 include_once '../functions/gestionar.php';
 include_once '../functions/editar.php';
+include_once '../functions/eliminar.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['editar'])) {
@@ -19,7 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $clasificacion = $_POST['clasificacion'];
         $genero = $_POST['genero'];
         actualizarPelicula($id, $titulo, $descripcion, $duracion, $clasificacion, $genero);
-    } else {
+    } 
+    elseif (isset($_POST['eliminar'])) {
+        $id = $_POST['id_pelicula'];
+        eliminarPelicula($id);
+    }   
+
+    else {
         // Agregar película
         $titulo = $_POST['titulo'];
         $descripcion = $_POST['descripcion'];
@@ -34,8 +41,10 @@ $peliculas = obtenerPeliculas();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Películas</title>
     <link rel="stylesheet" href="../assets/styles.css">
     
@@ -55,8 +64,12 @@ $peliculas = obtenerPeliculas();
     <ul>
         <?php foreach ($peliculas as $pelicula): ?>
             <li>
-                <?php echo "{$pelicula['titulo']} - {$pelicula['duracion']} min - Clasificación: {$pelicula['clasificacion']} - Género: {$pelicula['genero']}"; ?>
+                <?php echo "{$pelicula['titulo']} -  {$pelicula['descripcion']} - {$pelicula['duracion']} min - Clasificación: {$pelicula['clasificacion']} - Género: {$pelicula['genero']}"; ?>
                 <button onclick="abrirModal(<?php echo $pelicula['id_pelicula']; ?>)">Editar</button>
+                <form method="post" style="display:inline;">
+                    <input type="hidden" name="id_pelicula" value="<?php echo $pelicula['id_pelicula']; ?>">
+                    <button type="submit" name="eliminar" onclick="return confirm('Estas seguro que deseas eliminar esta pelicula xdxd?');" >Eliminar</button>
+                </form>
             </li>
         <?php endforeach; ?>
     </ul>

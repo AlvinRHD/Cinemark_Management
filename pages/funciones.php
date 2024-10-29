@@ -2,6 +2,7 @@
 include_once '../config.php';
 include_once '../functions/gestionar.php';
 include_once '../functions/editar.php';
+include_once '../functions/eliminar.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['editar'])) {
@@ -12,7 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $horario = $_POST['horario'];
         $fecha = $_POST['fecha'];
         actualizarFuncion($id, $id_pelicula, $id_sala, $horario, $fecha);
-    } else {
+    } 
+    elseif (isset($_POST['eliminar'])) {
+        $id = $_POST['id_funcion'];
+        eliminarFuncion($id);
+    }
+    else {
         // Agregar función
         $id_pelicula = $_POST['id_pelicula'];
         $id_sala = $_POST['id_sala'];
@@ -28,28 +34,13 @@ $funciones = obtenerFunciones();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Funciones</title>
-    <style>
-        /* Estilos del modal */
-        .modal {
-            display: none;
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/styles.css">
+   
 </head>
 <body>
     <h1>Administrar Funciones</h1>
@@ -79,6 +70,10 @@ $funciones = obtenerFunciones();
             <li>
                 <?php echo "{$funcion['pelicula']} en {$funcion['sala']} a las {$funcion['horario']} el {$funcion['fecha']}"; ?>
                 <button onclick="abrirModal(<?php echo $funcion['id_funcion']; ?>)">Editar</button>
+                <form method="post" style="display:inline;">
+                    <input type="hidden" name="id_funcion" value="<?php echo $funcion['id_funcion']; ?>">
+                    <button type="submit" name="eliminar" onclick="return confirm('Estas seguro que deseas eliminar esta funcion xdxd?');" >Eliminar</button>
+                </form>
             </li>
         <?php endforeach; ?>
     </ul>
@@ -132,3 +127,5 @@ $funciones = obtenerFunciones();
     </script>
 </body>
 </html>
+
+

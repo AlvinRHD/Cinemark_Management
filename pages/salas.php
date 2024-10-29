@@ -1,7 +1,14 @@
 <?php
+session_start();
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: ../login/login.php");
+    exit();
+}
+
 include_once '../config.php';
 include_once '../functions/gestionar.php';
 include_once '../functions/editar.php';
+include_once '../functions/eliminar.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['editar'])) {
@@ -11,7 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $capacidad = $_POST['capacidad'];
         $estado = $_POST['estado'];
         actualizarSala($id, $nombre, $capacidad, $estado);
-    } else {
+    }
+    elseif (isset($_POST['eliminar'])) {
+        $id = $_POST['id_sala'];
+        eliminarSala($id);
+        } 
+    
+    else {
         // Agregar sala
         $nombre = $_POST['nombre'];
         $capacidad = $_POST['capacidad'];
@@ -23,8 +36,10 @@ $salas = obtenerSalas();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Salas</title>
     <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -42,6 +57,10 @@ $salas = obtenerSalas();
             <li>
                 <?php echo "{$sala['nombre']} - Capacidad: {$sala['capacidad']} - Estado: {$sala['estado']}"; ?>
                 <button onclick="abrirModal(<?php echo $sala['id_sala']; ?>)">Editar</button>
+                <form method="post" style="display:inline;">
+                    <input type="hidden" name="id_sala" value="<?php echo $sala['id_sala']; ?>">
+                    <button type="submit" name="eliminar" onclick="return confirm('Estas seguro que deseas eliminar esta sala xdxd?');" >Eliminar</button>
+                </form>
             </li>
         <?php endforeach; ?>
     </ul>
