@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `cinemark_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `cinemark_db`;
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: cinemark_db
@@ -28,6 +30,7 @@ CREATE TABLE `funciones` (
   `id_sala` int DEFAULT NULL,
   `horario` time NOT NULL,
   `fecha` date NOT NULL,
+  `asientos_ocupados` text,
   PRIMARY KEY (`id_funcion`),
   KEY `id_pelicula` (`id_pelicula`),
   KEY `id_sala` (`id_sala`),
@@ -42,7 +45,7 @@ CREATE TABLE `funciones` (
 
 LOCK TABLES `funciones` WRITE;
 /*!40000 ALTER TABLE `funciones` DISABLE KEYS */;
-INSERT INTO `funciones` VALUES (1,1,1,'11:00:00','2024-10-28'),(2,2,2,'11:44:00','2024-10-09'),(3,1,2,'11:45:00','2024-10-01'),(4,2,2,'11:44:00','2024-10-09'),(5,4,2,'12:59:00','2024-10-11'),(6,4,2,'12:00:00','2024-10-29'),(7,4,2,'12:00:00','2024-10-29'),(8,9,2,'19:44:00','2024-10-30');
+INSERT INTO `funciones` VALUES (1,1,1,'11:00:00','2024-10-28',NULL),(2,2,2,'11:44:00','2024-10-09',NULL),(3,1,2,'11:45:00','2024-10-01',NULL),(4,2,2,'11:44:00','2024-10-09',NULL),(5,4,2,'12:59:00','2024-10-11',NULL),(6,4,2,'12:00:00','2024-10-29',NULL),(7,4,2,'12:00:00','2024-10-29',NULL),(8,9,2,'19:44:00','2024-10-30',NULL);
 /*!40000 ALTER TABLE `funciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,4 +169,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-30 13:32:25
+-- Dump completed on 2024-10-30 14:00:11
