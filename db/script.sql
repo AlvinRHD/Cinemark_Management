@@ -33,7 +33,7 @@ CREATE TABLE `funciones` (
   KEY `id_sala` (`id_sala`),
   CONSTRAINT `funciones_ibfk_1` FOREIGN KEY (`id_pelicula`) REFERENCES `peliculas` (`id_pelicula`),
   CONSTRAINT `funciones_ibfk_2` FOREIGN KEY (`id_sala`) REFERENCES `salas` (`id_sala`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `funciones` (
 
 LOCK TABLES `funciones` WRITE;
 /*!40000 ALTER TABLE `funciones` DISABLE KEYS */;
-INSERT INTO `funciones` VALUES (1,1,1,'11:00:00','2024-10-28'),(2,2,2,'11:44:00','2024-10-09'),(3,1,2,'11:45:00','2024-10-01'),(4,2,2,'11:44:00','2024-10-09'),(5,4,2,'12:59:00','2024-10-11'),(6,4,2,'12:00:00','2024-10-29'),(7,4,2,'12:00:00','2024-10-29'),(8,9,2,'19:44:00','2024-10-30');
+INSERT INTO `funciones` VALUES (1,1,1,'11:00:00','2024-10-28'),(2,2,2,'11:44:00','2024-10-09'),(3,1,2,'11:45:00','2024-10-01'),(4,2,2,'11:44:00','2024-10-09');
 /*!40000 ALTER TABLE `funciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,9 +60,8 @@ CREATE TABLE `peliculas` (
   `duracion` int DEFAULT NULL,
   `clasificacion` varchar(50) DEFAULT NULL,
   `genero` varchar(100) DEFAULT NULL,
-  `imagen` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_pelicula`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +70,7 @@ CREATE TABLE `peliculas` (
 
 LOCK TABLES `peliculas` WRITE;
 /*!40000 ALTER TABLE `peliculas` DISABLE KEYS */;
-INSERT INTO `peliculas` VALUES (1,'La cabra','Un jugador profesional se manifiesta',75,'Mayores de 10 años','Futbol','avengers.jpeg'),(2,'Avengers','Un persona usa un guante para poder ir en el tiempo',67,'Para mayores de 13 años','Pelea','avengers.jpeg'),(4,'The walking dead','Zombies por do quier',70,'Para mayores de 18 años','Zombies','thewalkingdead.jpg'),(5,'The walking dead','Zombies por do quier',70,'Para mayores de 18 años','Zombies','thewalkingdead.jpg'),(6,'The walking dead','Zombies por do quier',70,'Para mayores de 18 años','Zombies','thewalkingdead.jpg'),(8,'Avengers','Un persona usa un guante para poder ir en el tiempo -',66,'Para mayores de 18 años','Pelea','avengers.jpeg'),(9,'Avengers','Un persona usa un guante para poder ir en el tiempo -',66,'Para mayores de 18 años','Pelea','avengers.jpeg');
+INSERT INTO `peliculas` VALUES (1,'La cabra','Un jugador profesional se manifiesta',75,'Mayores de 10 años','Futbol'),(2,'Avengers','Un persona usa un guante para poder ir en el tiempo',67,'Para mayores de 13 años','Pelea');
 /*!40000 ALTER TABLE `peliculas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,4 +165,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-29 18:50:34
+-- Dump completed on 2024-10-29 11:09:53

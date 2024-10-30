@@ -1,9 +1,6 @@
 <?php
 
-include_once '../config.php';
-include_once '../functions/gestionar.php';
-
-
+include_once(__DIR__ . '/../config.php');
 
 //USUARIOS
 function agregarUsuario($nombre, $email, $contrasena, $rol) {

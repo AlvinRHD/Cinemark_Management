@@ -2,6 +2,8 @@
 include_once 'config.php';
 include_once 'functions/gestionar.php';
 
+session_start();
+
 // Obtener funciones de la semana actual
 $funcionesSemana = obtenerFuncionesSemanaActual();
 ?>
@@ -16,10 +18,25 @@ $funcionesSemana = obtenerFuncionesSemanaActual();
 <body>
     <h1>Bienvenido al Sistema de Gestión de Cine</h1>
     <ul>
-        <li><a href="pages/peliculas.php">Administrar Películas</a></li>
-        <li><a href="pages/salas.php">Administrar Salas</a></li>
-        <li><a href="pages/funciones.php">Administrar Funciones</a></li>
-        <li><a href="pages/usuarios.php">Administrar Usuarios</a></li>
+        <?php 
+            if ($_SESSION['rol'] == 'empleado'){
+                echo '<li><a href="pages/salas.php">Administrar Salas</a></li>';
+            }
+            if ($_SESSION['rol'] == 'gerente'){
+                echo '<li><a href="pages/peliculas.php">Administrar Películas</a></li>';
+                echo '<li><a href="pages/salas.php">Administrar Salas</a></li>';
+                echo '<li><a href="pages/funciones.php">Administrar Funciones</a></li>';
+                //echo '<li><a href="pages/usuarios.php">Administrar Usuarios</a></li>';
+                echo '<li><a href="#">Analisis de datos</a></li>';
+            }
+            else if ($_SESSION['rol'] == 'administrador') {
+                echo '<li><a href="pages/peliculas.php">Administrar Películas</a></li>';
+                echo '<li><a href="pages/salas.php">Administrar Salas</a></li>';
+                echo '<li><a href="pages/funciones.php">Administrar Funciones</a></li>';
+                echo '<li><a href="pages/usuarios.php">Administrar Usuarios</a></li>';
+                echo '<li><a href="#">Analisis de datos</a></li>';
+            }
+        ?>
         <li><a href="auth/logout.php">Cerrar Sesión</a></li> 
     </ul>
 

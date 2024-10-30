@@ -4,6 +4,8 @@ include_once '../functions/gestionar.php';
 include_once '../functions/editar.php';
 include_once '../functions/eliminar.php';
 
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['editar'])) {
         // Editar usuario
@@ -47,9 +49,16 @@ $usuarios = obtenerUsuarios();
         <input type="email" name="email" placeholder="Correo electrónico" required>
         <input type="password" name="contrasena" placeholder="Contraseña" required>
         <select name="rol" required>
-            <option value="administrador">Administrador</option>
-            <option value="empleado">Empleado</option>
-            <option value="gerente">Gerente</option>
+        <?php 
+            if ($_SESSION['rol'] == 'gerente') {
+                echo '<option value="empleado">Empleado</option>';
+            }
+            else {
+                echo '<option value="administrador">Administrador</option>';
+                echo '<option value="gerente">Gerente</option>';
+                echo '<option value="empleado">Empleado</option>';
+            }
+            ?>
         </select>
         <button type="submit">Agregar Usuario</button>
     </form>
