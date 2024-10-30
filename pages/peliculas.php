@@ -1,42 +1,11 @@
 <?php
-session_start();
-if (!isset($_SESSION['id_usuario'])) {
-    header("Location: ../login/login.php");
-    exit();
-}
+
 
 include_once '../config.php';
 include_once '../functions/gestionar.php';
 include_once '../functions/editar.php';
 include_once '../functions/eliminar.php';
 
-
-// // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-// //     if (isset($_POST['editar'])) {
-// //         // Editar película
-// //         $id = $_POST['id_pelicula'];
-// //         $titulo = $_POST['titulo'];
-// //         $descripcion = $_POST['descripcion'];
-// //         $duracion = $_POST['duracion'];
-// //         $clasificacion = $_POST['clasificacion'];
-// //         $genero = $_POST['genero'];
-// //         actualizarPelicula($id, $titulo, $descripcion, $duracion, $clasificacion, $genero);
-// //     } 
-// //     elseif (isset($_POST['eliminar'])) {
-// //         $id = $_POST['id_pelicula'];
-// //         eliminarPelicula($id);
-// //     }   
-
-// //     else {
-// //         // Agregar película
-// //         $titulo = $_POST['titulo'];
-// //         $descripcion = $_POST['descripcion'];
-// //         $duracion = $_POST['duracion'];
-// //         $clasificacion = $_POST['clasificacion'];
-// //         $genero = $_POST['genero'];
-// //         agregarPelicula($titulo, $descripcion, $duracion, $clasificacion, $genero);
-// //     }
-// // }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['editar'])) {
         // Editar película

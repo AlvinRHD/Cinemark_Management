@@ -3,7 +3,6 @@
 include_once '../config.php';
 include_once '../functions/gestionar.php';
 
-include_once '../index.php';
 
 
 //USUARIOS
@@ -81,7 +80,7 @@ function agregarFuncion($id_pelicula, $id_sala, $horario, $fecha) {
 function obtenerFuncionesSemanaActual() {
     global $conexion;
     $query = "
-        SELECT f.*, p.titulo as pelicula, s.nombre as sala
+        SELECT f.*, p.titulo as pelicula, p.imagen as imagen, s.nombre as sala
         FROM funciones f
         JOIN peliculas p ON f.id_pelicula = p.id_pelicula
         JOIN salas s ON f.id_sala = s.id_sala
@@ -90,6 +89,7 @@ function obtenerFuncionesSemanaActual() {
     $result = $conexion->query($query);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
 
 
 

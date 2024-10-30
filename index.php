@@ -1,12 +1,4 @@
 <?php
-session_start(); // Iniciar sesión
-
-// Si el usuario no ha iniciado sesión, redirigir a login.php
-if (!isset($_SESSION['id_usuario'])) {
-    header("Location: login/login.php");
-    exit(); // Asegurarse de detener la ejecución del script
-}
-
 include_once 'config.php';
 include_once 'functions/gestionar.php';
 
@@ -28,7 +20,7 @@ $funcionesSemana = obtenerFuncionesSemanaActual();
         <li><a href="pages/salas.php">Administrar Salas</a></li>
         <li><a href="pages/funciones.php">Administrar Funciones</a></li>
         <li><a href="pages/usuarios.php">Administrar Usuarios</a></li>
-        <li><a href="login/logout.php">Cerrar Sesión</a></li> 
+        <li><a href="auth/logout.php">Cerrar Sesión</a></li> 
     </ul>
 
     <h2>Funciones de esta Semana</h2>
@@ -36,6 +28,7 @@ $funcionesSemana = obtenerFuncionesSemanaActual();
         <ul>
             <?php foreach ($funcionesSemana as $funcion): ?>
                 <li>
+                <img src="uploads/<?php echo $funcion['imagen']; ?>" alt="<?php echo $funcion['pelicula']; ?>" style="width:100px;"><br>
                     <strong><?php echo $funcion['pelicula']; ?></strong><br>
                     Sala: <?php echo $funcion['sala']; ?><br>
                     Fecha: <?php echo date('d-m-Y', strtotime($funcion['fecha'])); ?><br>
