@@ -4,6 +4,30 @@ include_once '../functions/gestionar.php';
 include_once '../functions/editar.php';
 include_once '../functions/eliminar.php';
 
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     if (isset($_POST['editar'])) {
+//         // Editar función
+//         $id = $_POST['id_funcion'];
+//         $id_pelicula = $_POST['id_pelicula'];
+//         $id_sala = $_POST['id_sala'];
+//         $horario = $_POST['horario'];
+//         $fecha = $_POST['fecha'];
+//         actualizarFuncion($id, $id_pelicula, $id_sala, $horario, $fecha);
+//     } 
+//     elseif (isset($_POST['eliminar'])) {
+//         $id = $_POST['id_funcion'];
+//         eliminarFuncion($id);
+//     }
+//     else {
+//         // Agregar función
+//         $id_pelicula = $_POST['id_pelicula'];
+//         $id_sala = $_POST['id_sala'];
+//         $horario = $_POST['horario'];
+//         $fecha = $_POST['fecha'];
+//         agregarFuncion($id_pelicula, $id_sala, $horario, $fecha);
+//     }
+// }
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['editar'])) {
         // Editar función
@@ -24,7 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_sala = $_POST['id_sala'];
         $horario = $_POST['horario'];
         $fecha = $_POST['fecha'];
-        agregarFuncion($id_pelicula, $id_sala, $horario, $fecha);
+
+        // Comprobar si la sala está ocupada
+        $salaSeleccionada = obtenerSalaPorId($id_sala); // Función que obtiene la sala por su ID
+        if ($salaSeleccionada['estado'] === 'ocupada') {
+            echo "<script>alert('La sala seleccionada está ocupada. Por favor, elige otra sala.');</script>";
+        } else {
+            agregarFuncion($id_pelicula, $id_sala, $horario, $fecha);
+        }
     }
 }
 
@@ -68,11 +99,12 @@ $funciones = obtenerFunciones();
     <ul>
         <?php foreach ($funciones as $funcion): ?>
             <li>
+                <img src="../uploads/<?php echo $funcion['imagen_pelicula']; ?>" alt="<?php echo $funcion['pelicula']; ?>" style="width:100px;">
                 <?php echo "{$funcion['pelicula']} en {$funcion['sala']} a las {$funcion['horario']} el {$funcion['fecha']}"; ?>
                 <button onclick="abrirModal(<?php echo $funcion['id_funcion']; ?>)">Editar</button>
                 <form method="post" style="display:inline;">
                     <input type="hidden" name="id_funcion" value="<?php echo $funcion['id_funcion']; ?>">
-                    <button type="submit" name="eliminar" onclick="return confirm('Estas seguro que deseas eliminar esta funcion xdxd?');" >Eliminar</button>
+                    <button type="submit" name="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta función?');">Eliminar</button>
                 </form>
             </li>
         <?php endforeach; ?>
@@ -127,5 +159,3 @@ $funciones = obtenerFunciones();
     </script>
 </body>
 </html>
-
-

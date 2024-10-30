@@ -69,8 +69,25 @@ function agregarSala($nombre, $capacidad) {
 }
 
 
+// function agregarFuncion($id_pelicula, $id_sala, $horario, $fecha) {
+//     global $conexion;
+//     $stmt = $conexion->prepare("INSERT INTO funciones (id_pelicula, id_sala, horario, fecha) VALUES (?, ?, ?, ?)");
+//     $stmt->bind_param("iiss", $id_pelicula, $id_sala, $horario, $fecha);
+//     $stmt->execute();
+//     $stmt->close();
+// }
+
 function agregarFuncion($id_pelicula, $id_sala, $horario, $fecha) {
     global $conexion;
+
+    // Verificar si la sala está ocupada
+    $salaSeleccionada = obtenerSalaPorId($id_sala);
+    if ($salaSeleccionada['estado'] === 'ocupada') {
+        echo "<script>alert('La sala seleccionada está ocupada. Por favor, elige otra sala.');</script>";
+        return; // Termina la ejecución si la sala está ocupada
+    }
+
+    // Si la sala está disponible, agrega la función
     $stmt = $conexion->prepare("INSERT INTO funciones (id_pelicula, id_sala, horario, fecha) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("iiss", $id_pelicula, $id_sala, $horario, $fecha);
     $stmt->execute();
@@ -105,10 +122,21 @@ function obtenerSalas() {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
+function obtenerSalaPorId($id_sala) {
+    global $conexion;
+    $stmt = $conexion->prepare("SELECT * FROM salas WHERE id_sala = ?");
+    $stmt->bind_param("i", $id_sala);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
 function obtenerFunciones() {
     global $conexion;
     $query = "
-        SELECT f.*, p.titulo as pelicula, s.nombre as sala
+        SELECT f.id_funcion, f.id_pelicula, f.id_sala, f.horario, f.fecha,
+               p.titulo AS pelicula, p.imagen AS imagen_pelicula,
+               s.nombre AS sala
         FROM funciones f
         JOIN peliculas p ON f.id_pelicula = p.id_pelicula
         JOIN salas s ON f.id_sala = s.id_sala
