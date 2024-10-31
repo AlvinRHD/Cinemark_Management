@@ -23,7 +23,7 @@ body {
 
 /* Contenedor del formulario */
 form {
-    background-color: rgba(90, 57, 149, 0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -36,7 +36,7 @@ form {
 form h1 {
     font-size: 32px;
     margin-bottom: 40px;
-    color: #b18bbd;
+    color: #ffffff;
     text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
 }
 
@@ -64,25 +64,25 @@ label {
 
 input[type="email"],
 input[type="password"] {
-    background-color: #3c2063;
+    background-color: #362a46;
     color: #ffffff;
 }
 
 input[type="email"]:focus,
 input[type="password"]:focus {
     outline: none;
-    background-color: #5a3995;
+    background-color: #302544;
 }
 
 /* Botón de envío */
 button {
     font-weight: bold;
-    background-color: #8a6f97;
+    background-color: #151117;
     color: #ffffff;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #5a3995;
+    background-color: #2a203a;
 }

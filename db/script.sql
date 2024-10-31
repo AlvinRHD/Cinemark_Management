@@ -37,7 +37,7 @@ CREATE TABLE `funciones` (
   KEY `id_sala` (`id_sala`),
   CONSTRAINT `funciones_ibfk_1` FOREIGN KEY (`id_pelicula`) REFERENCES `peliculas` (`id_pelicula`),
   CONSTRAINT `funciones_ibfk_2` FOREIGN KEY (`id_sala`) REFERENCES `salas` (`id_sala`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `funciones` (
 
 LOCK TABLES `funciones` WRITE;
 /*!40000 ALTER TABLE `funciones` DISABLE KEYS */;
-INSERT INTO `funciones` VALUES (1,1,1,'11:00:00','2024-10-28',NULL,10.00),(2,2,2,'11:44:00','2024-10-09',NULL,10.00),(3,1,2,'11:45:00','2024-10-01',NULL,10.00),(4,2,2,'11:44:00','2024-10-09',NULL,10.00),(5,4,2,'12:59:00','2024-10-11',NULL,10.00),(6,4,2,'12:00:00','2024-10-29',NULL,10.00),(7,4,2,'12:00:00','2024-10-29',NULL,10.00),(8,9,2,'19:44:00','2024-10-30',NULL,10.00),(9,1,4,'20:00:00','2024-10-30',NULL,10.00),(10,10,5,'01:55:00','2024-10-31',NULL,3.89),(11,10,5,'01:55:00','2024-10-31',NULL,3.89),(12,10,5,'01:55:00','2024-10-31',NULL,3.89),(13,10,5,'01:55:00','2024-10-31',NULL,3.89),(14,10,5,'01:55:00','2024-10-31',NULL,3.89),(15,10,5,'01:55:00','2024-10-31',NULL,10.00),(16,10,5,'16:03:00','2024-10-31',NULL,30.00),(17,10,5,'16:03:00','2024-10-31','[\"5\"]',30.00),(18,10,5,'16:03:00','2024-10-31',NULL,30.00),(19,10,5,'16:03:00','2024-10-31','[\"5\",\"5\",\"1\",\"2\",\"3\",\"4\",\"5\",\"5\",\"5\",\"5\",\"5\"]',30.00);
+INSERT INTO `funciones` VALUES (1,1,1,'11:00:00','2024-10-28',NULL,10.00),(2,2,2,'11:44:00','2024-10-09','[\"6\"]',10.00),(3,1,2,'11:45:00','2024-10-01',NULL,10.00),(4,2,2,'11:44:00','2024-10-09',NULL,10.00),(5,4,2,'12:59:00','2024-10-11',NULL,10.00),(6,4,2,'12:00:00','2024-10-29',NULL,10.00),(7,4,2,'12:00:00','2024-10-29',NULL,10.00),(8,9,2,'19:44:00','2024-10-30',NULL,10.00),(9,1,4,'20:00:00','2024-10-30',NULL,10.00),(10,10,5,'01:55:00','2024-10-31',NULL,3.89),(11,10,5,'01:55:00','2024-10-31',NULL,3.89),(12,10,5,'01:55:00','2024-10-31',NULL,3.89),(13,10,5,'01:55:00','2024-10-31',NULL,3.89),(14,10,5,'01:55:00','2024-10-31',NULL,3.89),(15,10,5,'01:55:00','2024-10-31',NULL,10.00),(16,10,5,'16:03:00','2024-10-31',NULL,30.00),(17,10,5,'16:03:00','2024-10-31','[\"5\"]',30.00),(18,10,5,'16:03:00','2024-10-31','[\"4\"]',30.00),(19,10,5,'16:03:00','2024-10-31','[\"5\",\"5\",\"1\",\"2\",\"3\",\"4\",\"5\",\"5\",\"5\",\"5\",\"5\"]',30.00),(20,11,5,'12:08:00','2024-11-01','[\"1\",\"2\",\"3\",\"4\",\"5\"]',2.99);
 /*!40000 ALTER TABLE `funciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +66,7 @@ CREATE TABLE `peliculas` (
   `genero` varchar(100) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_pelicula`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE `peliculas` (
 
 LOCK TABLES `peliculas` WRITE;
 /*!40000 ALTER TABLE `peliculas` DISABLE KEYS */;
-INSERT INTO `peliculas` VALUES (1,'La cabra','Un jugador profesional se manifiesta',75,'Mayores de 10 años','Futbol','avengers.jpeg'),(2,'Avengers','Un persona usa un guante para poder ir en el tiempo',67,'Para mayores de 13 años','Pelea','avengers.jpeg'),(4,'The walking dead','Zombies por do quier',70,'Para mayores de 18 años','Zombies','thewalkingdead.jpg'),(5,'The walking dead','Zombies por do quier',70,'Para mayores de 18 años','Zombies','thewalkingdead.jpg'),(6,'The walking dead','Zombies por do quier',70,'Para mayores de 18 años','Zombies','thewalkingdead.jpg'),(8,'Avengers','Un persona usa un guante para poder ir en el tiempo -',66,'Para mayores de 18 años','Pelea','avengers.jpeg'),(9,'Avengers','Un persona usa un guante para poder ir en el tiempo -',66,'Para mayores de 18 años','Pelea','avengers.jpeg'),(10,'Un espia y medio','Espias que van a una mision',60,'PG','Acción','unespiaymedio.jpg');
+INSERT INTO `peliculas` VALUES (1,'La cabra','Un jugador profesional se manifiesta',75,'Mayores de 10 años','Futbol','avengers.jpeg'),(2,'Avengers','Un persona usa un guante para poder ir en el tiempo',67,'Para mayores de 13 años','Pelea','avengers.jpeg'),(4,'The walking dead','Zombies por do quier',70,'Para mayores de 18 años','Zombies','thewalkingdead.jpg'),(5,'The walking dead','Zombies por do quier',70,'Para mayores de 18 años','Zombies','thewalkingdead.jpg'),(6,'The walking dead','Zombies por do quier',70,'Para mayores de 18 años','Zombies','thewalkingdead.jpg'),(8,'Avengers','Un persona usa un guante para poder ir en el tiempo -',66,'Para mayores de 18 años','Pelea','avengers.jpeg'),(9,'Avengers','Un persona usa un guante para poder ir en el tiempo -',66,'Para mayores de 18 años','Pelea','avengers.jpeg'),(10,'Un espia y medio','Espias que van a una mision',60,'PG','Acción','unespiaymedio.jpg'),(11,'Cocolito','Es un payasito de el salvador que hace reir a la gente',60,'G','Comedia','cocolito.jpg');
 /*!40000 ALTER TABLE `peliculas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +149,7 @@ CREATE TABLE `ventas` (
   PRIMARY KEY (`id_venta`),
   KEY `id_funcion` (`id_funcion`),
   CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_funcion`) REFERENCES `funciones` (`id_funcion`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +158,7 @@ CREATE TABLE `ventas` (
 
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-INSERT INTO `ventas` VALUES (1,19,1,30.00,'2024-10-30'),(2,19,1,30.00,'2024-10-30'),(3,19,5,150.00,'2024-10-30'),(4,19,1,30.00,'2024-10-30'),(5,19,1,30.00,'2024-10-30'),(6,19,1,30.00,'2024-10-30'),(7,19,1,30.00,'2024-10-30'),(8,17,1,30.00,'2024-10-30');
+INSERT INTO `ventas` VALUES (1,19,1,30.00,'2024-10-24'),(2,19,1,30.00,'2024-10-25'),(3,19,5,150.00,'2024-10-26'),(4,19,1,30.00,'2024-10-27'),(5,19,1,30.00,'2024-10-28'),(6,19,1,30.00,'2024-10-29'),(7,19,1,30.00,'2024-10-30'),(8,17,1,30.00,'2024-10-30'),(9,20,5,14.95,'2024-10-31'),(10,2,1,10.00,'2024-10-31'),(11,18,1,30.00,'2024-10-31');
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -171,4 +171,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-30 18:56:06
+-- Dump completed on 2024-10-31 16:02:02

@@ -25,7 +25,7 @@ $funcionesSemana = obtenerFuncionesSemanaActual();
     <div class="nav-wrapper">
         <div class="container">
             <div class="nav">
-                <a href="#" class="logo"><i class="bx bx-movie-play bx-tada main-color"></i> Gestión <span class="main-color">Cine</span></a>
+                <a href="index.php" class="logo"><i class="bx bx-movie-play bx-tada main-color"></i> Gestión <span class="main-color">Cine</span></a>
                 <ul class="nav-menu" id="nav-menu">
                     <?php if ($_SESSION['rol'] == 'empleado'): ?>
                         <li><a href="pages/salas.php">Administrar Salas</a></li>

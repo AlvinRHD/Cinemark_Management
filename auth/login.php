@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="stylesheet" href="../assets/css/login.css?v=1.0">
 </head>
 <body>
 
