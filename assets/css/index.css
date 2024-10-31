@@ -1,0 +1,59 @@
+.nav-wrapper {
+    padding: 10px 0;
+}
+.nav .logo {
+    font-size: 26px;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #999999;
+    color: #fff;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto; /* Alineación a la derecha */
+    font-size: 0.9rem; /* Tamaño de letra reducido */
+}
+.nav-menu li {
+    list-style: none;
+}
+.btn-hover {
+    margin-left: 15px; /* Margen izquierdo para separar Cerrar Sesión */
+}
+
+/* Ajustes de tamaño para las funciones */
+.movie-item {
+    padding-top: 100%;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.movie-item img {
+    width: 100%;
+    height: auto;
+}
+.movie-item-content {
+    padding: 10px;
+    font-size: 0.9rem;
+}
+.movie-item-title {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+.movie-infos .movie-info {
+    font-size: 0.8rem;
+    margin-right: 10px;
+}
+/* Estilo para Análisis de Datos en dos líneas */
+.nav-menu a.analisis-datos {
+    font-size: 0.85rem; /* Tamaño de fuente ajustado */
+    line-height: 1.1;
+    white-space: normal;
+    text-align: center;
+    display: inline-block;
+}
+
