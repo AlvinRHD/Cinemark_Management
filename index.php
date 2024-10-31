@@ -29,7 +29,7 @@ $funcionesSemana = obtenerFuncionesSemanaActual();
                 echo '<li><a href="pages/funciones.php">Administrar Funciones</a></li>';
                 echo '<li><a href="pages/ventas.php">Administrar Ventas</a></li>';
                 //echo '<li><a href="pages/usuarios.php">Administrar Usuarios</a></li>';
-                echo '<li><a href="#">Analisis de datos</a></li>';
+                echo '<li><a href="pages/index.php">Analisis de datos</a></li>';
             }
             else if ($_SESSION['rol'] == 'administrador') {
                 echo '<li><a href="pages/peliculas.php">Administrar Películas</a></li>';
@@ -37,7 +37,7 @@ $funcionesSemana = obtenerFuncionesSemanaActual();
                 echo '<li><a href="pages/funciones.php">Administrar Funciones</a></li>';
                 echo '<li><a href="pages/ventas.php">Administrar Ventas</a></li>';
                 echo '<li><a href="pages/usuarios.php">Administrar Usuarios</a></li>';
-                echo '<li><a href="#">Analisis de datos</a></li>';
+                echo '<li><a href="pages/index.php">Analisis de datos</a></li>';
 
             }   
         ?>
