@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="../assets/login.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
 </head>
 <body>
 
     <video autoplay muted loop id="bg-video">
-        <source src="../assets/VideoInicio.mp4" type="video/mp4">
+        <source src="../assets/video/videoCine.mp4" type="video/mp4">
         Tu navegador no soporta la reproducción de video.
     </video>
     

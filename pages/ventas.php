@@ -2,7 +2,6 @@
 include_once '../config.php';
 include_once '../functions/gestionar.php';
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_funcion = $_POST['id_funcion'];
     
@@ -14,11 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cantidadBoletos = count($asientosSeleccionados);
         $precioTotal = $cantidadBoletos * obtenerPrecioFuncion($id_funcion); // Función que devuelve el precio por boleto
 
-        // Procesar la venta si hay asientos seleccionados
-        procesarVenta($id_funcion, $asientosSeleccionados, $precioTotal);
-        echo "<script>alert('Compra realizada con éxito');</script>";
+        // Procesar la venta solo si no hay asientos ocupados
+        if (procesarVenta($id_funcion, $asientosSeleccionados, $precioTotal)) {
+            echo "<script>alert('Compra realizada con éxito');</script>";
+        }
     }
 }
+
 
 $funciones = obtenerFunciones();
 ?>
@@ -29,7 +30,7 @@ $funciones = obtenerFunciones();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventas de Boletos</title>
-    <link rel="stylesheet" href="../assets/styleAsientos.css">
+    <link rel="stylesheet" href="../assets/css/styleAsientos.css">
 </head>
 <body>
     <h1>Venta de Boletos</h1>
@@ -51,16 +52,20 @@ $funciones = obtenerFunciones();
     </form>
 
     <script>
-        function cargarAsientos() {
+
+function cargarAsientos() {
+    
     const funcionId = document.getElementById('funcion').value;
     if (!funcionId) return;
 
     fetch(`../functions/cargar_asientos.php?id_funcion=${funcionId}`)
         .then(response => response.json())
         .then(data => {
+            
+
             const asientosContainer = document.getElementById('asientosContainer');
             asientosContainer.innerHTML = '';
-            
+
             const rows = Math.ceil(data.capacidad / 10);
             for (let i = 0; i < rows; i++) {
                 const rowDiv = document.createElement('div');
@@ -70,25 +75,35 @@ $funciones = obtenerFunciones();
                     const asientoNum = i * 10 + j + 1;
                     if (asientoNum > data.capacidad) break;
 
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.name = 'asientos[]';
-                    checkbox.value = asientoNum;
-                    checkbox.id = `asiento-${asientoNum}`;
-                    checkbox.disabled = data.asientosOcupados.includes(asientoNum);
+                    // Crear el botón para el asiento
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.innerText = asientoNum;
+                    button.className = 'asiento';
 
-                    const label = document.createElement('label');
-                    label.htmlFor = `asiento-${asientoNum}`;
-                    label.innerText = asientoNum;
-                    label.className = data.asientosOcupados.includes(asientoNum) ? 'ocupado' : 'disponible';
+                    // Si el asiento está ocupado, agregar clase 'ocupado', si está disponible, agregar clase 'disponible'
+                    if (data.asientosOcupados.includes(asientoNum.toString())) {
+                        button.classList.add('ocupado');
+                        button.disabled = true; // Deshabilitar asiento ocupado
+                    } else {
+                        button.classList.add('disponible');
+                        // Permitir selección de asientos disponibles
+                        button.onclick = () => {
+                            button.classList.toggle('seleccionado');
+                        };
+                    }
 
-                    rowDiv.appendChild(checkbox);
-                    rowDiv.appendChild(label);
+                    rowDiv.appendChild(button);
                 }
                 asientosContainer.appendChild(rowDiv);
             }
         });
+        
+
 }
+
+
+
         function mostrarAsientos(capacidad, asientosOcupados) {
     const asientosContainer = document.getElementById("asientosContainer");
     asientosContainer.innerHTML = "";
@@ -109,14 +124,27 @@ $funciones = obtenerFunciones();
 }
 
 
+       
+
         function verificarSeleccionAsientos() {
-            const checkboxes = document.querySelectorAll('input[name="asientos[]"]:checked');
-            if (checkboxes.length === 0) {
-                alert('Por favor, selecciona al menos un asiento.');
-                return false; // Previene el envío del formulario
-            }
-            return true; // Permite el envío del formulario si hay al menos un asiento seleccionado
-        }
+    const selectedSeats = document.querySelectorAll('.asiento.seleccionado');
+    if (selectedSeats.length === 0) {
+        alert('Por favor, selecciona al menos un asiento.');
+        return false;
+    }
+
+    // Agregar los asientos seleccionados al formulario
+    selectedSeats.forEach(seat => {
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'asientos[]';
+        hiddenInput.value = seat.innerText; // Número del asiento
+        document.querySelector('form').appendChild(hiddenInput);
+    });
+
+    return true;
+}
+
     </script>
 </body>
 </html>

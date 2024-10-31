@@ -2,7 +2,7 @@
 include_once '../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $con = new mysqli("localhost", "root", "", "cinemark_db");
+    $con = new mysqli("localhost", "root", "witty", "cinemark_db");
     $fecha_inicio = isset($_POST["fecha_inicio"]) ? $_POST["fecha_inicio"] : "";
     $fecha_fin = isset($_POST["fecha_fin"]) ? $_POST["fecha_fin"] : "";
 
