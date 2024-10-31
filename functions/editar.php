@@ -55,11 +55,13 @@ function actualizarSala($id, $nombre, $capacidad, $estado) {
 
 
 // Actualizar función
-function actualizarFuncion($id, $id_pelicula, $id_sala, $horario, $fecha) {
+function actualizarFuncion($id, $id_pelicula, $id_sala, $horario, $fecha, $precio) {
     global $conexion;
-    $stmt = $conexion->prepare("UPDATE funciones SET id_pelicula = ?, id_sala = ?, horario = ?, fecha = ? WHERE id_funcion = ?");
-    $stmt->bind_param("iissi", $id_pelicula, $id_sala, $horario, $fecha, $id);
+
+    $stmt = $conexion->prepare("UPDATE funciones SET id_pelicula = ?, id_sala = ?, horario = ?, fecha = ?, precio = ? WHERE id_funcion = ?");
+    $stmt->bind_param("iissdi", $id_pelicula, $id_sala, $horario, $fecha, $precio, $id);
     $stmt->execute();
     $stmt->close();
 }
+
 ?>

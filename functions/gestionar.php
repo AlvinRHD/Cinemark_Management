@@ -2,6 +2,43 @@
 
 include_once(__DIR__ . '/../config.php');
 
+
+
+
+///////////////////////////////////
+function agregarVenta($id_funcion, $cantidad_boletos, $total) {
+    global $conexion;
+
+    // Obtener la capacidad y asientos ocupados de la función
+    $funcion = obtenerFuncionPorId($id_funcion);
+    $asientosOcupados = json_decode($funcion['asientos_ocupados'], true) ?? [];
+
+    if (count($asientosOcupados) + $cantidad_boletos > $funcion['capacidad']) {
+        echo "No hay suficientes asientos disponibles.";
+        return false;
+    }
+
+    // Marcar nuevos asientos ocupados
+    for ($i = 0; $i < $cantidad_boletos; $i++) {
+        $asientosOcupados[] = $i;
+    }
+
+    // Actualizar asientos ocupados
+    $stmt = $conexion->prepare("UPDATE funciones SET asientos_ocupados = ? WHERE id_funcion = ?");
+    $stmt->bind_param("si", json_encode($asientosOcupados), $id_funcion);
+    $stmt->execute();
+
+    // Insertar la venta
+    $stmt = $conexion->prepare("INSERT INTO ventas (id_funcion, cantidad_boletos, total, fecha) VALUES (?, ?, ?, CURDATE())");
+    $stmt->bind_param("iid", $id_funcion, $cantidad_boletos, $total);
+    $stmt->execute();
+    $stmt->close();
+    return true;
+}
+////////////////////////
+
+
+
 //USUARIOS
 function agregarUsuario($nombre, $email, $contrasena, $rol) {
     global $conexion;
@@ -66,30 +103,26 @@ function agregarSala($nombre, $capacidad) {
 }
 
 
-// function agregarFuncion($id_pelicula, $id_sala, $horario, $fecha) {
-//     global $conexion;
-//     $stmt = $conexion->prepare("INSERT INTO funciones (id_pelicula, id_sala, horario, fecha) VALUES (?, ?, ?, ?)");
-//     $stmt->bind_param("iiss", $id_pelicula, $id_sala, $horario, $fecha);
-//     $stmt->execute();
-//     $stmt->close();
-// }
 
-function agregarFuncion($id_pelicula, $id_sala, $horario, $fecha) {
+function agregarFuncion($id_pelicula, $id_sala, $horario, $fecha, $precio) {
     global $conexion;
 
     // Verificar si la sala está ocupada
     $salaSeleccionada = obtenerSalaPorId($id_sala);
     if ($salaSeleccionada['estado'] === 'ocupada') {
         echo "<script>alert('La sala seleccionada está ocupada. Por favor, elige otra sala.');</script>";
-        return; // Termina la ejecución si la sala está ocupada
+        return;
     }
 
-    // Si la sala está disponible, agrega la función
-    $stmt = $conexion->prepare("INSERT INTO funciones (id_pelicula, id_sala, horario, fecha) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("iiss", $id_pelicula, $id_sala, $horario, $fecha);
+    
+
+    // Insertar la función con el precio
+    $stmt = $conexion->prepare("INSERT INTO funciones (id_pelicula, id_sala, horario, fecha, precio) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("iissd", $id_pelicula, $id_sala, $horario, $fecha, $precio);
     $stmt->execute();
     $stmt->close();
 }
+
 
 function obtenerFuncionesSemanaActual() {
     global $conexion;
@@ -113,6 +146,15 @@ function obtenerPeliculas() {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
+
+function obtenerSalasDisponibles() {
+    global $conexion;
+    $query = "SELECT * FROM salas WHERE estado = 'disponible'";
+    $resultado = $conexion->query($query);
+    return $resultado->fetch_all(MYSQLI_ASSOC);
+}
+
+
 function obtenerSalas() {
     global $conexion;
     $result = $conexion->query("SELECT * FROM salas");
@@ -132,6 +174,7 @@ function obtenerFunciones() {
     global $conexion;
     $query = "
         SELECT f.id_funcion, f.id_pelicula, f.id_sala, f.horario, f.fecha,
+                f.precio,
                p.titulo AS pelicula, p.imagen AS imagen_pelicula,
                s.nombre AS sala
         FROM funciones f
@@ -141,6 +184,99 @@ function obtenerFunciones() {
     $result = $conexion->query($query);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
+function obtenerFuncionPorId($id_funcion) {
+    global $conexion;
+    $stmt = $conexion->prepare("SELECT f.*, s.capacidad FROM funciones f JOIN salas s ON f.id_sala = s.id_sala WHERE f.id_funcion = ?");
+    $stmt->bind_param("i", $id_funcion);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+
+function obtenerPrecioFuncion($id_funcion) {
+    global $conexion;
+    $stmt = $conexion->prepare("SELECT precio FROM funciones WHERE id_funcion = ?");
+    $stmt->bind_param("i", $id_funcion);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $funcion = $result->fetch_assoc();
+    return $funcion['precio'];
+}
+
+// function procesarVenta($id_funcion, $asientosSeleccionados, $precioTotal) {
+//     global $conexion;
+
+//     // Obtener asientos ocupados actuales de la función
+//     $funcion = obtenerFuncionPorId($id_funcion);
+//     $asientosOcupados = json_decode($funcion['asientos_ocupados'], true) ?? [];
+
+//     // Verificar si los asientos seleccionados ya están ocupados
+//     foreach ($asientosSeleccionados as $asiento) {
+//         if (in_array($asiento, $asientosOcupados)) {
+//             echo "El asiento $asiento ya está ocupado. Selecciona otros asientos.";
+//             return false;
+//         }
+//     }
+
+//     // Actualizar la lista de asientos ocupados con los seleccionados en esta venta
+//     $asientosOcupados = array_merge($asientosOcupados, $asientosSeleccionados);
+//     $asientosOcupadosJson = json_encode($asientosOcupados);
+
+//     // Guardar los nuevos asientos ocupados en la base de datos
+//     $stmt = $conexion->prepare("UPDATE funciones SET asientos_ocupados = ? WHERE id_funcion = ?");
+//     $stmt->bind_param("si", $asientosOcupadosJson, $id_funcion);
+//     $stmt->execute();
+
+//     // Registrar la venta en la tabla de ventas
+//     $cantidadBoletos = count($asientosSeleccionados);
+//     $stmt = $conexion->prepare("INSERT INTO ventas (id_funcion, cantidad_boletos, total, fecha) VALUES (?, ?, ?, CURDATE())");
+//     $stmt->bind_param("iid", $id_funcion, $cantidadBoletos, $precioTotal);
+//     $stmt->execute();
+//     $stmt->close();
+
+//     return true;
+// }
+
+function procesarVenta($id_funcion, $asientosSeleccionados, $precioTotal) {
+    global $conexion;
+
+    // Obtener asientos ocupados actuales de la función
+    $funcion = obtenerFuncionPorId($id_funcion);
+    $asientosOcupados = json_decode($funcion['asientos_ocupados'], true) ?? [];
+
+    // Verificar si los asientos seleccionados ya están ocupados
+    foreach ($asientosSeleccionados as $asiento) {
+        if (in_array($asiento, $asientosOcupados)) {
+            // Mostrar alerta y detener el procesamiento de la venta
+            echo "<script>alert('El asiento $asiento ya está ocupado. Por favor, selecciona otros asientos.');</script>";
+            return false;
+        }
+    }
+
+    // Actualizar la lista de asientos ocupados con los seleccionados en esta venta
+    $asientosOcupados = array_merge($asientosOcupados, $asientosSeleccionados);
+    $asientosOcupadosJson = json_encode($asientosOcupados);
+
+    // Guardar los nuevos asientos ocupados en la base de datos
+    $stmt = $conexion->prepare("UPDATE funciones SET asientos_ocupados = ? WHERE id_funcion = ?");
+    $stmt->bind_param("si", $asientosOcupadosJson, $id_funcion);
+    $stmt->execute();
+
+    // Registrar la venta en la tabla de ventas
+    $cantidadBoletos = count($asientosSeleccionados);
+    $stmt = $conexion->prepare("INSERT INTO ventas (id_funcion, cantidad_boletos, total, fecha) VALUES (?, ?, ?, CURDATE())");
+    $stmt->bind_param("iid", $id_funcion, $cantidadBoletos, $precioTotal);
+    $stmt->execute();
+    $stmt->close();
+
+    // Confirmación de compra exitosa
+    echo "<script>alert('Compra realizada con éxito.'); window.location.href = 'pagina_de_exito.php';</script>";
+    return true;
+}
+
+
 
 
 

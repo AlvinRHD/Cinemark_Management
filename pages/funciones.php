@@ -4,29 +4,7 @@ include_once '../functions/gestionar.php';
 include_once '../functions/editar.php';
 include_once '../functions/eliminar.php';
 
-// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//     if (isset($_POST['editar'])) {
-//         // Editar función
-//         $id = $_POST['id_funcion'];
-//         $id_pelicula = $_POST['id_pelicula'];
-//         $id_sala = $_POST['id_sala'];
-//         $horario = $_POST['horario'];
-//         $fecha = $_POST['fecha'];
-//         actualizarFuncion($id, $id_pelicula, $id_sala, $horario, $fecha);
-//     } 
-//     elseif (isset($_POST['eliminar'])) {
-//         $id = $_POST['id_funcion'];
-//         eliminarFuncion($id);
-//     }
-//     else {
-//         // Agregar función
-//         $id_pelicula = $_POST['id_pelicula'];
-//         $id_sala = $_POST['id_sala'];
-//         $horario = $_POST['horario'];
-//         $fecha = $_POST['fecha'];
-//         agregarFuncion($id_pelicula, $id_sala, $horario, $fecha);
-//     }
-// }
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['editar'])) {
@@ -36,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_sala = $_POST['id_sala'];
         $horario = $_POST['horario'];
         $fecha = $_POST['fecha'];
-        actualizarFuncion($id, $id_pelicula, $id_sala, $horario, $fecha);
+        $precio = $_POST['precio']; // Captura el precio
+        actualizarFuncion($id, $id_pelicula, $id_sala, $horario, $fecha, $precio);
     } 
     elseif (isset($_POST['eliminar'])) {
         $id = $_POST['id_funcion'];
@@ -48,15 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_sala = $_POST['id_sala'];
         $horario = $_POST['horario'];
         $fecha = $_POST['fecha'];
-
+        $precio = $_POST['precio']; // Captura el precio
+    
         // Comprobar si la sala está ocupada
-        $salaSeleccionada = obtenerSalaPorId($id_sala); // Función que obtiene la sala por su ID
+        $salaSeleccionada = obtenerSalaPorId($id_sala); 
         if ($salaSeleccionada['estado'] === 'ocupada') {
             echo "<script>alert('La sala seleccionada está ocupada. Por favor, elige otra sala.');</script>";
         } else {
-            agregarFuncion($id_pelicula, $id_sala, $horario, $fecha);
+            agregarFuncion($id_pelicula, $id_sala, $horario, $fecha, $precio); // Pasa el precio
         }
     }
+    
 }
 
 $peliculas = obtenerPeliculas();
@@ -76,38 +57,44 @@ $funciones = obtenerFunciones();
 <body>
     <h1>Administrar Funciones</h1>
     <form method="post">
-        <label for="id_pelicula">Película:</label>
-        <select name="id_pelicula" required>
-            <?php foreach ($peliculas as $pelicula): ?>
-                <option value="<?php echo $pelicula['id_pelicula']; ?>"><?php echo $pelicula['titulo']; ?></option>
-            <?php endforeach; ?>
-        </select>
-        
-        <label for="id_sala">Sala:</label>
-        <select name="id_sala" required>
-            <?php foreach ($salas as $sala): ?>
-                <option value="<?php echo $sala['id_sala']; ?>"><?php echo $sala['nombre']; ?></option>
-            <?php endforeach; ?>
-        </select>
-        
-        <input type="time" name="horario" placeholder="Horario" required>
-        <input type="date" name="fecha" required>
-        <button type="submit">Agregar Función</button>
-    </form>
+    <label for="id_pelicula">Película:</label>
+    <select name="id_pelicula" required>
+        <?php foreach ($peliculas as $pelicula): ?>
+            <option value="<?php echo $pelicula['id_pelicula']; ?>"><?php echo $pelicula['titulo']; ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <label for="id_sala">Sala:</label>
+    <select name="id_sala" required>
+        <?php foreach ($salas as $sala): ?>
+            <option value="<?php echo $sala['id_sala']; ?>"><?php echo $sala['nombre']; ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <input type="time" name="horario" placeholder="Horario" required>
+    <input type="date" name="fecha" required>
+    <input type="number" name="precio" placeholder="Precio" step="0.01" required> <!-- Nuevo campo para el precio -->
+    <button type="submit">Agregar Función</button>
+</form>
+
     
     <h2>Listado de Funciones</h2>
     <ul>
-        <?php foreach ($funciones as $funcion): ?>
-            <li>
-                <img src="../uploads/<?php echo $funcion['imagen_pelicula']; ?>" alt="<?php echo $funcion['pelicula']; ?>" style="width:100px;">
-                <?php echo "{$funcion['pelicula']} en {$funcion['sala']} a las {$funcion['horario']} el {$funcion['fecha']}"; ?>
-                <button onclick="abrirModal(<?php echo $funcion['id_funcion']; ?>)">Editar</button>
-                <form method="post" style="display:inline;">
-                    <input type="hidden" name="id_funcion" value="<?php echo $funcion['id_funcion']; ?>">
-                    <button type="submit" name="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta función?');">Eliminar</button>
-                </form>
-            </li>
-        <?php endforeach; ?>
+    <?php foreach ($funciones as $funcion): ?>
+    <li>
+        <img src="../uploads/<?php echo $funcion['imagen_pelicula']; ?>" alt="<?php echo $funcion['pelicula']; ?>" style="width:100px;">
+        <?php 
+            echo "{$funcion['pelicula']} en {$funcion['sala']} a las {$funcion['horario']} el {$funcion['fecha']} - Precio: $"; 
+            echo isset($funcion['precio']) ? $funcion['precio'] : "No disponible"; 
+        ?>
+        <button onclick="abrirModal(<?php echo $funcion['id_funcion']; ?>)">Editar</button>
+        <form method="post" style="display:inline;">
+            <input type="hidden" name="id_funcion" value="<?php echo $funcion['id_funcion']; ?>">
+            <button type="submit" name="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta función?');">Eliminar</button>
+        </form>
+    </li>
+<?php endforeach; ?>
+
     </ul>
 
     <!-- Modal de edición -->
@@ -132,6 +119,7 @@ $funciones = obtenerFunciones();
                 
                 <input type="time" name="horario" id="modal_horario" required>
                 <input type="date" name="fecha" id="modal_fecha" required>
+                <input type="number" name="precio" id="modal_precio" placeholder="Precio" step="0.01" required>
                 <button type="submit" name="editar">Guardar Cambios</button>
                 <button type="button" onclick="cerrarModal()">Cancelar</button>
             </form>
