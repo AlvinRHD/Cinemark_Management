@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="../assets/login.css">
 </head>
 <body>
-    <h1>Iniciar Sesión</h1>
+
+    <video autoplay muted loop id="bg-video">
+        <source src="../assets/animeVideo1.mp4" type="video/mp4">
+        Tu navegador no soporta la reproducción de video.
+    </video>
+    
     <form action="procesos_login.php" method="post">
+        <h1>Iniciar Sesión</h1>
         <label for="email">Correo Electrónico:</label>
-        <input type="email" name="email" required>
+        <input type="email" name="email" class="input-field" required>
         
         <label for="password">Contraseña:</label>
-        <input type="password" name="password" required>
-        
-        <button type="submit">Iniciar Sesión</button>
+        <input type="password" name="password" class="input-field" required>
+        <br>
+        <button type="submit" class="input-field">Iniciar Sesión</button>
     </form>
 </body>
 </html>

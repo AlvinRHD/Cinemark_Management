@@ -1,0 +1,190 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    background-color: #3f004e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Título principal */
+h1 {
+    font-size: 36px;
+    color: #b18bbd;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 28px;
+    color: #b18bbd;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Contenedor del formulario */
+form {
+    background-color: rgba(90, 57, 149, 0.4);
+    padding: 30px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Estilos de los campos de entrada */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    background-color: #3c2063;
+    color: #ffffff;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+form button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    background-color: #8a6f97;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #5a3995;
+}
+
+/* Lista de usuarios mejorada */
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 700px;
+    width: 100%;
+}
+
+.user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(60, 32, 99, 0.9);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+}
+
+.user-card:hover {
+    transform: translateY(-3px);
+}
+
+.user-info {
+    color: #ffffff;
+}
+
+.user-info .user-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.user-info .user-email {
+    font-size: 14px;
+    color: #cfcfcf;
+    margin-bottom: 5px;
+}
+
+.user-info .user-role {
+    font-size: 14px;
+    color: #b18bbd;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button {
+    background-color: #ffb74d;
+    color: #000000;
+}
+
+.delete-button {
+    background-color: #d9534f;
+    color: #ffffff;
+}
+
+.edit-button:hover {
+    background-color: #ffa726;
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #3c2063;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content button {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.modal-content button {
+    width: 48%;
+}

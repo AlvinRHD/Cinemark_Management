@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         actualizarUsuario($id, $nombre, $email, $contrasena, $rol);
     } 
     elseif (isset($_POST['eliminar'])) {
-        // Lógica para eliminar usuario
+        // Eliminar usuario
         $id = $_POST['id_usuario'];
         eliminarUsuario($id);
     } 
@@ -40,7 +40,7 @@ $usuarios = obtenerUsuarios();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Usuarios</title>
-    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/usuarios.css">
 </head>
 <body>
     <h1>Administrar Usuarios</h1>
@@ -63,19 +63,27 @@ $usuarios = obtenerUsuarios();
         <button type="submit">Agregar Usuario</button>
     </form>
 
+    <br>
+    <br>
+    <br>
+    <br>
     <h2>Listado de Usuarios</h2>
-    <ul>
+    <br>
+    <div class="user-list">
         <?php foreach ($usuarios as $usuario): ?>
-            <li>
-                <?php echo "{$usuario['nombre']} - {$usuario['email']} - Rol: {$usuario['rol']}"; ?>
-                <button onclick="abrirModal(<?php echo $usuario['id_usuario']; ?>)">Editar</button>
-                <form method="post" style="display:inline;">
-                <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario']; ?>">
-                <button type="submit" name="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">Eliminar</button>
-            </form>
-            </li>
+            <div class="user-card">
+                <div class="user-info">
+                    <p class="user-name"><?php echo $usuario['nombre']; ?></p>
+                    <p class="user-email"><?php echo $usuario['email']; ?></p>
+                    <p class="user-role">Rol: <?php echo $usuario['rol']; ?></p>
+                </div>
+                <div class="user-actions">
+                    <button class="edit-button" onclick="abrirModal(<?php echo $usuario['id_usuario']; ?>)">✏️ Editar</button>
+                    <button class="delete-button" onclick="confirmDelete(<?php echo $usuario['id_usuario']; ?>)">🗑️ Eliminar</button>
+                </div>
+            </div>
         <?php endforeach; ?>
-    </ul>
+    </div>
 
     <!-- Modal de edición -->
     <div id="modal" class="modal">
@@ -113,6 +121,30 @@ $usuarios = obtenerUsuarios();
 
         function cerrarModal() {
             document.getElementById('modal').style.display = 'none';
+        }
+
+        // Confirmar y enviar eliminación
+        function confirmDelete(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.style.display = 'none';
+
+                const inputId = document.createElement('input');
+                inputId.type = 'hidden';
+                inputId.name = 'id_usuario';
+                inputId.value = id;
+
+                const deleteAction = document.createElement('input');
+                deleteAction.type = 'hidden';
+                deleteAction.name = 'eliminar';
+                deleteAction.value = '1';
+
+                form.appendChild(inputId);
+                form.appendChild(deleteAction);
+                document.body.appendChild(form);
+                form.submit();
+            }
         }
     </script>
 </body>
