@@ -7,7 +7,7 @@
 <body>
 
     <video autoplay muted loop id="bg-video">
-        <source src="../assets/animeVideo1.mp4" type="video/mp4">
+        <source src="../assets/VideoInicio.mp4" type="video/mp4">
         Tu navegador no soporta la reproducción de video.
     </video>
     
