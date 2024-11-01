@@ -12,7 +12,7 @@
     </video>
     
     <form action="procesos_login.php" method="post">
-        <h1>Iniciar Sesión</h1>
+        <h1>Iniciar <span class="sesion">Sesión<span></h1>
         <label for="email">Correo Electrónico:</label>
         <input type="email" name="email" class="input-field" required>
         

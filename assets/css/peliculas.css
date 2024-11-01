@@ -31,13 +31,21 @@ body {
 }
 
 /* Título principal */
-h1, h2 {
+h1 {
+    font-size: 36px;
     color: #ffffff;
     text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
+    margin-bottom: 20px;
     text-align: center;
 }
-h1 { font-size: 36px; }
-h2 { font-size: 28px; }
+
+h2 {
+    font-size: 28px;
+    color: #ffffff;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
+    margin-bottom: 20px;
+    text-align: center;
+}
 
 /* Contenedor del formulario */
 form {
@@ -52,7 +60,12 @@ form {
 }
 
 /* Estilos de los campos de entrada */
-form input[type="text"], form input[type="email"], form input[type="password"], form select {
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form select,
+form textarea {
     width: calc(100% - 20px);
     padding: 10px;
     margin: 10px 0;
@@ -61,6 +74,8 @@ form input[type="text"], form input[type="email"], form input[type="password"], 
     background-color: #ff5e00;
     color: #ffffff;
     font-size: 14px;
+    box-sizing: border-box;
+    caret-color: #ffffff;
     font-weight: bold;
 }
 
@@ -82,44 +97,49 @@ form button:hover {
     background-color: #ff3300;
 }
 
-/* Lista de usuarios */
-.user-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 700px;
+/* Listado de películas */
+ul {
+    list-style-type: none;
+    padding: 0;
+    max-width: 800px;
     width: 100%;
 }
-.user-card {
+
+ul li {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     background-color: rgba(255, 123, 0, 0.7);
-    padding: 15px 20px;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s;
+    margin-bottom: 15px;
+    gap: 15px;
 }
-.user-card:hover { transform: translateY(-3px); }
-.user-info p { color: #ffffff; }
-.user-info .user-name { font-size: 18px; font-weight: bold; }
-.user-info .user-email, .user-info .user-role { font-size: 14px; }
 
-/* Botones de acción */
-.user-actions { display: flex; gap: 10px; }
-.edit-button, .delete-button {
+ul li img {
+    width: 100px;
+    border-radius: 8px;
+}
+
+ul li p {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+ul li button {
+    background-color: #757575;
+    color: #ffffff;
     padding: 8px 12px;
-    font-size: 14px;
-    font-weight: bold;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-left: 10px;
+    font-weight: bold;
 }
-.edit-button { background-color: #fffd80; color: #000000; }
-.delete-button { background-color: #f34039; color: #ffffff; }
-.edit-button:hover { background-color: #fffb00; }
-.delete-button:hover { background-color: #cc0700; }
+
+ul li button:hover {
+    background-color: #ff3300;
+}
 
 /* Modal */
 .modal {
@@ -130,20 +150,35 @@ form button:hover {
     justify-content: center;
     align-items: center;
 }
+
 .modal-content {
     background-color: #1d1d1d;
     padding: 20px;
-    padding-left: 80px;
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
 }
-.modal-content h2 { margin-top: 0; margin-right: 60px; }
-.modal-content input, .modal-content select, .modal-content button {
+
+.modal-content h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea,
+.modal-content button {
     width: calc(100% - 20px);
     padding: 10px;
     margin: 10px 0;
 }
-.modal-content button { width: 48%; }
 
-.letra { color: #ff5e00; }
+.modal-content button {
+    width: 48%;
+    margin: 10px 1%;
+}
+
+/* Icono de letra especial */
+.letra {
+    color: #ff5e00;
+}

@@ -64,25 +64,29 @@ label {
 
 input[type="email"],
 input[type="password"] {
-    background-color: #362a46;
+    background-color: #d8680c;
     color: #ffffff;
 }
 
 input[type="email"]:focus,
 input[type="password"]:focus {
     outline: none;
-    background-color: #302544;
+    background-color: #ffc477;
 }
 
 /* Botón de envío */
 button {
     font-weight: bold;
-    background-color: #151117;
+    background-color: #757575;
     color: #ffffff;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #2a203a;
+    background-color: #d8680c;
+}
+
+.sesion {
+    color: #d8680c;
 }

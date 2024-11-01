@@ -35,7 +35,7 @@ $usuarios = obtenerUsuarios();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,13 +43,20 @@ $usuarios = obtenerUsuarios();
     <link rel="stylesheet" href="../assets/css/usuarios.css?v=1.0">
 </head>
 <body>
-    <h1>Administrar Usuarios</h1>
+    <!-- Botón para regresar al index -->
+    <div class="back-button">
+        <a href="../index.php" class="btn btn-hover">Regresar al inicio</a>
+    </div>
+
+    <h1>Administrar <span class="letra">Usuarios</span></h1>
+    
+    <!-- Formulario para agregar usuario -->
     <form method="post">
         <input type="text" name="nombre" placeholder="Nombre" required>
         <input type="email" name="email" placeholder="Correo electrónico" required>
         <input type="password" name="contrasena" placeholder="Contraseña" required>
         <select name="rol" required>
-        <?php 
+            <?php 
             if ($_SESSION['rol'] == 'gerente') {
                 echo '<option value="empleado">Empleado</option>';
             }
@@ -65,10 +72,7 @@ $usuarios = obtenerUsuarios();
 
     <br>
     <br>
-    <br>
-    <br>
-    <h2>Listado de Usuarios</h2>
-    <br>
+    <h2>Listado de <span class="letra">Usuarios</span></h2>
     <div class="user-list">
         <?php foreach ($usuarios as $usuario): ?>
             <div class="user-card">
