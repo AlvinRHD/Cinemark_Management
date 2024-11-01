@@ -41,12 +41,25 @@ $usuarios = obtenerUsuarios();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Usuarios</title>
     <link rel="stylesheet" href="../assets/css/usuarios.css?v=1.0">
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/grid.css">
+
+
 </head>
 <body>
     <!-- Botón para regresar al index -->
-    <div class="back-button">
-        <a href="../index.php" class="btn btn-hover">Regresar al inicio</a>
-    </div>
+    <header class="nav-wrapper">
+            <div class="nav">
+                <a href="../index.php" class="logo">Copilot</a>
+                <ul class="nav-menu">
+                    <li><a href="../index.php">Inicio</a></li>
+                </ul>
+            </div>
+        </header>
+        <br>
+        <br>
+        <br>
+
 
     <h1>Administrar <span class="letra">Usuarios</span></h1>
     

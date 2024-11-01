@@ -1,3 +1,11 @@
+.form-control {
+    background-color: var(--box-bg);
+    color: var(--text-color);
+    border: 1px solid var(--main-color);
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
 .asiento {
     width: 30px;
     height: 30px;
@@ -13,11 +21,24 @@
 
 .disponible {
     background-color: green;
-
-
 }
-
 
 .seleccionado {
     background-color: blue;
+}
+
+.btn {
+    background-color: var(--main-color);
+    color: #9f7a7a;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: darken(var(--main-color), 10%);
 }
