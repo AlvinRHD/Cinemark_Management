@@ -1,0 +1,246 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    background-color: #1d1d1d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Botón de regreso al inicio */
+.back-button {
+    text-align: left;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+.back-button .btn-hover {
+    background-color: #757575;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.back-button .btn-hover:hover {
+    background-color: #ff3300;
+}
+
+/* Título principal */
+h1, h2 {
+    color: #ffffff;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
+    text-align: center;
+}
+h1 { font-size: 36px; }
+h2 { font-size: 28px; }
+
+/* Contenedor del formulario de agregar sala */
+form {
+    background-color: rgba(255, 123, 0, 0.3);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin-bottom: 20px;
+}
+
+/* Estilos de los campos de entrada para el formulario */
+form input[type="text"],
+form input[type="number"],
+form input[type="email"],
+form input[type="password"],
+form select,
+form textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff5e00;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Botón de agregar sala */
+form button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    background-color: #757575;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+form button:hover {
+    background-color: #ff3300;
+}
+
+/* Tabla de salas */
+table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table thead th {
+    background-color: #ff5e00;
+    color: #ffffff;
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 2px solid #757575;
+}
+
+table tbody td {
+    background-color: rgba(255, 123, 0, 0.7);
+    color: #ffffff;
+    padding: 12px;
+    border-bottom: 1px solid #757575;
+    text-align: left;
+}
+
+table tbody tr:hover {
+    background-color: rgba(255, 123, 0, 0.9);
+}
+
+/* Estilo de los botones de acción en la tabla (Eliminar y Editar) */
+/* Estilo de los botones de acción en la tabla */
+table tbody td .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+table tbody td .edit-button,
+table tbody td .delete-button {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+
+table tbody td .edit-button {
+    background-color: #fffd80;
+    color: #000000;
+}
+table tbody td .edit-button:hover {
+    background-color: #fffb00;
+}
+
+table tbody td .delete-button {
+    background-color: #f34039;
+    color: #ffffff;
+}
+table tbody td .delete-button:hover {
+    background-color: #cc0700;
+}
+
+/* Lista de elementos (por ejemplo, películas) */
+ul {
+    list-style-type: none;
+    padding: 0;
+    max-width: 800px;
+    width: 100%;
+}
+
+ul li {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 123, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+ul li img {
+    width: 100px;
+    border-radius: 8px;
+}
+
+ul li p {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+ul li button {
+    background-color: #757575;
+    color: #ffffff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+ul li button:hover {
+    background-color: #ff3300;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #1d1d1d;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea,
+.modal-content button {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.modal-content button {
+    width: 48%;
+    margin: 10px 1%;
+}
+
+/* Icono de letra especial */
+.letra {
+    color: #ff5e00;
+}

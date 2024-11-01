@@ -1,6 +1,5 @@
 <?php
 
-
 include_once '../config.php';
 include_once '../functions/gestionar.php';
 include_once '../functions/editar.php';
@@ -14,13 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $capacidad = $_POST['capacidad'];
         $estado = $_POST['estado'];
         actualizarSala($id, $nombre, $capacidad, $estado);
-    }
-    elseif (isset($_POST['eliminar'])) {
+    } elseif (isset($_POST['eliminar'])) {
         $id = $_POST['id_sala'];
         eliminarSala($id);
-        } 
-    
-    else {
+    } else {
         // Agregar sala
         $nombre = $_POST['nombre'];
         $capacidad = $_POST['capacidad'];
@@ -38,9 +34,12 @@ $salas = obtenerSalas();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Salas</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/salas.css">
 </head>
 <body>
     <h1>Administrar Salas</h1>
+    
+    <!-- Formulario para agregar nueva sala -->
     <form method="post">
         <input type="text" name="nombre" placeholder="Nombre de la Sala" required>
         <input type="number" name="capacidad" placeholder="Capacidad" required>
@@ -48,18 +47,36 @@ $salas = obtenerSalas();
     </form>
     
     <h2>Listado de Salas</h2>
-    <ul>
-        <?php foreach ($salas as $sala): ?>
-            <li>
-                <?php echo "{$sala['nombre']} - Capacidad: {$sala['capacidad']} - Estado: {$sala['estado']}"; ?>
-                <button onclick="abrirModal(<?php echo $sala['id_sala']; ?>)">Editar</button>
-                <form method="post" style="display:inline;">
-                    <input type="hidden" name="id_sala" value="<?php echo $sala['id_sala']; ?>">
-                    <button type="submit" name="eliminar" onclick="return confirm('Estas seguro que deseas eliminar esta sala xdxd?');" >Eliminar</button>
-                </form>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    
+    <!-- Tabla para listar las salas -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Capacidad</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($salas as $sala): ?>
+                <tr>
+                    <td><?php echo $sala['nombre']; ?></td>
+                    <td><?php echo $sala['capacidad']; ?></td>
+                    <td><?php echo $sala['estado']; ?></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="edit-button" onclick="abrirModal(<?php echo $sala['id_sala']; ?>)">🖋️Editar</button>
+                            <form method="post" style="display:inline;">
+                            <input type="hidden" name="id_sala" value="<?php echo $sala['id_sala']; ?>">
+                            <button type="submit" name="eliminar" class="delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar esta sala?');">Eliminar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
     <!-- Modal de edición -->
     <div id="modal" class="modal">
