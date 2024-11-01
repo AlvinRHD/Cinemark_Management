@@ -35,8 +35,18 @@ $salas = obtenerSalas();
     <title>Administrar Salas</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/salas.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/grid.css">
 </head>
 <body>
+<header class="nav-wrapper">
+            <div class="nav">
+                <a href="../index.php" class="logo">Copilot</a>
+                <ul class="nav-menu">
+                    <li><a href="../index.php">Inicio</a></li>
+                </ul>
+            </div>
+        </header>
     <h1>Administrar Salas</h1>
     
     <!-- Formulario para agregar nueva sala -->
