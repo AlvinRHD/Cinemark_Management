@@ -7,10 +7,10 @@ include_once '../functions/eliminar.php';
 session_start();
 
 
-// Verifica si la sesión existe y si el usuario está autenticado
+
 if (!isset($_SESSION['id_usuario'])) {
-    // Si no está autenticado, redirige al formulario de inicio de sesión
-    header("Location: ../auth/login.php"); // Cambia 'login.php' por la ruta de tu formulario de inicio de sesión
+
+    header("Location: ../auth/login.php"); 
     exit();}
 
 
@@ -55,7 +55,7 @@ $usuarios = obtenerUsuarios();
 
 </head>
 <body>
-    <!-- Botón para regresar al index -->
+
     <header class="nav-wrapper">
             <div class="nav">
                 <a href="../index.php" class="logo">Copilot</a>
@@ -71,7 +71,7 @@ $usuarios = obtenerUsuarios();
 
     <h1>Administrar <span class="letra">Usuarios</span></h1>
     
-    <!-- Formulario para agregar usuario -->
+
     <form method="post">
         <input type="text" name="nombre" placeholder="Nombre" required>
         <input type="email" name="email" placeholder="Correo electrónico" required>
@@ -110,7 +110,7 @@ $usuarios = obtenerUsuarios();
         <?php endforeach; ?>
     </div>
 
-    <!-- Modal de edición -->
+   
     <div id="modal" class="modal">
         <div class="modal-content">
             <h2>Editar Usuario</h2>
@@ -131,7 +131,7 @@ $usuarios = obtenerUsuarios();
     </div>
 
     <script>
-        // Funciones para abrir y cerrar el modal
+ 
         function abrirModal(id) {
             const usuario = <?php echo json_encode($usuarios); ?>;
             const usuarioSeleccionado = usuario.find(u => u.id_usuario == id);
@@ -148,7 +148,7 @@ $usuarios = obtenerUsuarios();
             document.getElementById('modal').style.display = 'none';
         }
 
-        // Confirmar y enviar eliminación
+    
         function confirmDelete(id) {
             if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
                 const form = document.createElement('form');

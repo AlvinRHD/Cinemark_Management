@@ -8,16 +8,16 @@ include_once '../functions/eliminar.php';
 session_start();
 
 
-// Verifica si la sesión existe y si el usuario está autenticado
+
 if (!isset($_SESSION['id_usuario'])) {
-    // Si no está autenticado, redirige al formulario de inicio de sesión
-    header("Location: ../auth/login.php"); // Cambia 'login.php' por la ruta de tu formulario de inicio de sesión
+
+    header("Location: ../auth/login.php"); 
     exit();}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['editar'])) {
-        // Editar sala
+     
         $id = $_POST['id_sala'];
         $nombre = $_POST['nombre'];
         $capacidad = $_POST['capacidad'];
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id_sala'];
         eliminarSala($id);
     } else {
-        // Agregar sala
+   
         $nombre = $_POST['nombre'];
         $capacidad = $_POST['capacidad'];
         agregarSala($nombre, $capacidad);
@@ -59,7 +59,7 @@ $salas = obtenerSalas();
         </header>
     <h1>Administrar Salas</h1>
     
-    <!-- Formulario para agregar nueva sala -->
+ 
     <form method="post">
         <input type="text" name="nombre" placeholder="Nombre de la Sala" required>
         <input type="number" name="capacidad" placeholder="Capacidad" required>
@@ -68,7 +68,7 @@ $salas = obtenerSalas();
     
     <h2>Listado de Salas</h2>
     
-    <!-- Tabla para listar las salas -->
+   
     <table>
         <thead>
             <tr>
@@ -98,7 +98,7 @@ $salas = obtenerSalas();
         </tbody>
     </table>
 
-    <!-- Modal de edición -->
+   
     <div id="modal" class="modal">
         <div class="modal-content">
             <h2>Editar Sala</h2>
@@ -118,7 +118,7 @@ $salas = obtenerSalas();
     </div>
 
     <script>
-        // Funciones para abrir y cerrar el modal
+   
         function abrirModal(id) {
             const salas = <?php echo json_encode($salas); ?>;
             const salaSeleccionada = salas.find(s => s.id_sala == id);

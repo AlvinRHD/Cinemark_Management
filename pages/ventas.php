@@ -5,25 +5,24 @@ include_once '../functions/gestionar.php';
 session_start();
 
 
-// Verifica si la sesión existe y si el usuario está autenticado
 if (!isset($_SESSION['id_usuario'])) {
-    // Si no está autenticado, redirige al formulario de inicio de sesión
-    header("Location: ../auth/login.php"); // Cambia 'login.php' por la ruta de tu formulario de inicio de sesión
+
+    header("Location: ../auth/login.php"); 
     exit();}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_funcion = $_POST['id_funcion'];
     
-    // Verificar si se seleccionaron asientos
+
     if (!isset($_POST['asientos']) || empty($_POST['asientos'])) {
         echo "<script>alert('Por favor, selecciona al menos un asiento.');</script>";
     } else {
         $asientosSeleccionados = $_POST['asientos'];
         $cantidadBoletos = count($asientosSeleccionados);
-        $precioTotal = $cantidadBoletos * obtenerPrecioFuncion($id_funcion); // Función que devuelve el precio por boleto
+        $precioTotal = $cantidadBoletos * obtenerPrecioFuncion($id_funcion); 
 
-        // Procesar la venta solo si no hay asientos ocupados
+
         if (procesarVenta($id_funcion, $asientosSeleccionados, $precioTotal)) {
             echo "<script>alert('Compra realizada con éxito');</script>";
         }
@@ -100,19 +99,18 @@ function cargarAsientos() {
                     const asientoNum = i * 10 + j + 1;
                     if (asientoNum > data.capacidad) break;
 
-                    // Crear el botón para el asiento
+           
                     const button = document.createElement('button');
                     button.type = 'button';
                     button.innerText = asientoNum;
                     button.className = 'asiento';
 
-                    // Si el asiento está ocupado, agregar clase 'ocupado', si está disponible, agregar clase 'disponible'
+           
                     if (data.asientosOcupados.includes(asientoNum.toString())) {
                         button.classList.add('ocupado');
-                        button.disabled = true; // Deshabilitar asiento ocupado
-                    } else {
+                        button.disabled = true; 
                         button.classList.add('disponible');
-                        // Permitir selección de asientos disponibles
+                       
                         button.onclick = () => {
                             button.classList.toggle('seleccionado');
                         };
@@ -138,7 +136,7 @@ function cargarAsientos() {
         asiento.innerText = i;
         asiento.classList.add("asiento");
 
-        // Marcar los asientos ocupados
+     
         if (asientosOcupados.includes(i)) {
             asiento.classList.add("ocupado");
             asiento.disabled = true;
@@ -158,12 +156,12 @@ function cargarAsientos() {
         return false;
     }
 
-    // Agregar los asientos seleccionados al formulario
+   
     selectedSeats.forEach(seat => {
         const hiddenInput = document.createElement('input');
         hiddenInput.type = 'hidden';
         hiddenInput.name = 'asientos[]';
-        hiddenInput.value = seat.innerText; // Número del asiento
+        hiddenInput.value = seat.innerText;
         document.querySelector('form').appendChild(hiddenInput);
     });
 

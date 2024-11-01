@@ -4,19 +4,18 @@ include_once '../config.php';
 session_start();
 
 
-// Verifica si la sesión existe y si el usuario está autenticado
+
 if (!isset($_SESSION['id_usuario'])) {
-    // Si no está autenticado, redirige al formulario de inicio de sesión
-    header("Location: ../auth/login.php"); // Cambia 'login.php' por la ruta de tu formulario de inicio de sesión
+  
+    header("Location: ../auth/login.php"); 
     exit();}
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $con = new mysqli("localhost", "root", "", "cinemark_db");
+    $con = new mysqli("localhost", "root", "witty", "cinemark_db");
     $fecha_inicio = isset($_POST["fecha_inicio"]) ? $_POST["fecha_inicio"] : "";
     $fecha_fin = isset($_POST["fecha_fin"]) ? $_POST["fecha_fin"] : "";
 
-    // Consulta SQL para obtener la cantidad de boletos vendidos en el rango de fechas
     $consulta = "SELECT fecha, SUM(cantidad_boletos) AS total_asistentes
                  FROM ventas
                  WHERE fecha BETWEEN '$fecha_inicio' AND '$fecha_fin'
@@ -27,12 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $data = [];
     $fechas = [];
-    // Corrección: Aseguramos que el resultado de la consulta se recorra adecuadamente
+
     while ($fila = mysqli_fetch_assoc($ejecutar)) {
         $data[] = $fila['total_asistentes'];
         $fechas[] = "'" . $fila['fecha'] . "'";
     }
-    // Cierre de la conexión
+ 
     mysqli_close($con);
 ?>
 <!DOCTYPE html>
@@ -45,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script>
-    // Generación del gráfico con los datos obtenidos de la consulta
+   
     Highcharts.chart('container', {
         title: {
             text: 'Cantidad de asistencias al cine por día',
@@ -61,14 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         },
         xAxis: {
-            categories: [<?php echo implode(",", $fechas); ?>], // Corrección aplicada aquí
+            categories: [<?php echo implode(",", $fechas); ?>], 
             title: {
                 text: 'Fecha'
             }
         },
         series: [{
             name: 'Asistencias',
-            data: [<?php echo implode(",", $data); ?>] // Corrección aplicada aquí
+            data: [<?php echo implode(",", $data); ?>] 
         }],
         responsive: {
             rules: [{

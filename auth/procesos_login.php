@@ -3,9 +3,6 @@ session_start();
 include_once '../config.php';
 include_once '../functions/gestionar.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
@@ -22,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Guardar un mensaje de error en la sesión
         $_SESSION['error'] = "Credenciales incorrectas";
-        header("Location: ../index.php"); // Redirigir al formulario de inicio de sesión
+        header("Location: login.php"); // Redirigir al formulario de inicio de sesión
         exit();
     }
 }
