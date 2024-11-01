@@ -31,25 +31,40 @@ $funciones = obtenerFunciones();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventas de Boletos</title>
     <link rel="stylesheet" href="../assets/css/styleAsientos.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/grid.css">
+    <link rel="stylesheet" href="../assets/css/index.css">
 </head>
 <body>
-    <h1>Venta de Boletos</h1>
-    <form method="post" onsubmit="return verificarSeleccionAsientos()">
-        <label for="funcion">Función:</label>
-        <select name="id_funcion" id="funcion" required onchange="cargarAsientos()">
-            <option value="">Selecciona una función</option>
-            <?php foreach ($funciones as $funcion): ?>
-                <option value="<?php echo $funcion['id_funcion']; ?>"><?php echo "{$funcion['pelicula']} - {$funcion['horario']}"; ?></option>
-            <?php endforeach; ?>
-        </select>
-        
-
-
-        <h2>Selecciona tus asientos</h2>
-        <div id="asientosContainer"></div>
-
-        <button type="submit">Comprar Boletos</button>
-    </form>
+    <div class="container">
+        <header class="nav-wrapper">
+            <div class="nav">
+                <a href="../index.php" class="logo">Copilot</a>
+                <ul class="nav-menu">
+                    <li><a href="../index.php">Inicio</a></li>
+                </ul>
+            </div>
+        </header>
+        <main class="section">
+            <h1 class="pricing-header">Venta de Boletos</h1>
+            <form method="post" onsubmit="return verificarSeleccionAsientos()">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="funcion">Función:</label>
+                        <select name="id_funcion" id="funcion" class="form-control" required onchange="cargarAsientos()">
+                            <option value="">Selecciona una función</option>
+                            <?php foreach ($funciones as $funcion): ?>
+                                <option value="<?php echo $funcion['id_funcion']; ?>"><?php echo "{$funcion['pelicula']} - {$funcion['horario']}"; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <h2>Selecciona tus asientos</h2>
+                <div id="asientosContainer" class="row"></div>
+                <button type="submit" class="btn btn-hover">Comprar Boletos</button>
+            </form>
+        </main>
+    </div>
 
     <script>
 
