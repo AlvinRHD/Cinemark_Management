@@ -51,10 +51,24 @@ $funciones = obtenerFunciones();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Funciones</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/funciones.css">
+    <link rel="stylesheet" href="../assets/css/grid.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+
    
 </head>
 <body>
+<header class="nav-wrapper">
+            <div class="nav">
+                <a href="../index.php" class="logo">Copilot</a>
+                <ul class="nav-menu">
+                    <li><a href="../index.php">Inicio</a></li>
+                </ul>
+            </div>
+        </header>
+        <br>
+        <br>
+        <br>
     <h1>Administrar Funciones</h1>
     <form method="post">
     <label for="id_pelicula">Película:</label>
@@ -70,10 +84,14 @@ $funciones = obtenerFunciones();
             <option value="<?php echo $sala['id_sala']; ?>"><?php echo $sala['nombre']; ?></option>
         <?php endforeach; ?>
     </select>
+    <br>
 
     <input type="time" name="horario" placeholder="Horario" required>
+    <br>
     <input type="date" name="fecha" required>
+    <br>
     <input type="number" name="precio" placeholder="Precio" step="0.01" required> <!-- Nuevo campo para el precio -->
+    <br>
     <button type="submit">Agregar Función</button>
 </form>
 

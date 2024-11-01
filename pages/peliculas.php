@@ -42,20 +42,19 @@ $peliculas = obtenerPeliculas();
     <link rel="stylesheet" href="../assets/css/peliculas.css">
 </head>
 <body>
-    <!-- Botón para regresar al index -->
     <div class="back-button">
         <a href="../index.php" class="btn btn-hover">Regresar al inicio</a>
     </div>
 
-    <h1>Administrar Películas</h1>
+    <br>
+    <h1>Administrar <span class="letra">Películas<span></h1>
+    <br>
 
-    <!-- Formulario para agregar película -->
     <form method="post" enctype="multipart/form-data">
         <input type="text" name="titulo" placeholder="Título" required>
         <textarea name="descripcion" placeholder="Descripción"></textarea>
         <input type="number" name="duracion" placeholder="Duración" required>
         
-        <!-- Clasificación -->
         <label for="clasificacion">Clasificación:</label>
         <select name="clasificacion" required>
             <option value="G">G - General</option>
@@ -65,33 +64,55 @@ $peliculas = obtenerPeliculas();
             <option value="NC-17">NC-17 - Solo adultos</option>
         </select>
 
-        <!-- Género -->
         <label for="genero">Género:</label>
         <select name="genero" required>
-            <!-- Lista de géneros -->
+            <option value="accion">Acción</option>
+            <option value="comedia">Comedia</option>
+            <option value="drama">Drama</option>
+            <option value="fantasia">Fantasía</option>
+            <option value="terror">Terror</option>
+            <option value="accion/aventura">Acción/Aventura</option>
+            <option value="comedia/romantica">Comedia/Romántica</option>
+            <option value="drama/romantico">Drama/Romántico</option>
+            <option value="ciencia_ficcion">Ciencia Ficción</option>
+            <option value="suspenso">Suspenso</option>
+            <option value="musical">Musical</option>
+            <option value="animacion">Animación</option>
+            <option value="documental">Documental</option>
+            <option value="fantasia/aventura">Fantasía/Aventura</option>
+            <option value="accion/terror">Acción/Terror</option>
+            <option value="comedia/drama">Comedia/Drama</option>
+            <option value="fantasia/romantica">Fantasía/Romántica</option>
+            <option value="aventura/terror">Aventura/Terror</option>
+            <option value="historia">Historia</option>
+            <!-- Puedes agregar más opciones de género aquí -->
         </select>
-        <input type="file" name="imagen" accept="image/*" required>
+
+        <input type="file" name="imagen" accept="image/*" required class="file-input">
         <button type="submit">Agregar Película</button>
     </form>
 
-    <!-- Listado de películas -->
-    <h2>Listado de Películas</h2>
-    <ul>
-        <?php foreach ($peliculas as $pelicula): ?>
-            <li>
-                <img src="../uploads/<?php echo $pelicula['imagen']; ?>" alt="<?php echo $pelicula['titulo']; ?>">
-                <?php echo "{$pelicula['titulo']} -  {$pelicula['descripcion']} - {$pelicula['duracion']} min - Clasificación: {$pelicula['clasificacion']} - Género: {$pelicula['genero']}"; ?>
-                <button onclick="abrirModal(<?php echo $pelicula['id_pelicula']; ?>)">Editar</button>
-                <form method="post" style="display:inline;">
-                    <input type="hidden" name="id_pelicula" value="<?php echo $pelicula['id_pelicula']; ?>">
-                    <button type="submit" name="eliminar" onclick="return confirm('¿Estás seguro de eliminar esta película?');">Eliminar</button>
-                </form>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h2>Listado de <span class="letra">Películas<span></h2>
+        <ul>
+            <?php foreach ($peliculas as $pelicula): ?>
+                <li>
+                    <img src="../uploads/<?php echo $pelicula['imagen']; ?>" alt="<?php echo $pelicula['titulo']; ?>">
+                    <div>
+                        <?php echo "{$pelicula['titulo']} -  {$pelicula['descripcion']} - {$pelicula['duracion']} min - Clasificación: {$pelicula['clasificacion']} - Género: {$pelicula['genero']}"; ?>
+                    </div>
+                    <div class="user-actions">
+                        <button class="edit-button" onclick="abrirModal(<?php echo $pelicula['id_pelicula']; ?>)">✏️ Editar</button>
+                        <button class="delete-button" onclick="confirmDelete(<?php echo $pelicula['id_pelicula']; ?>)">🗑️ Eliminar</button>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
 
-    <!-- Modal de edición -->
-    <div id="modal" class="modal">
+    <div id="modal" class="modal" style="display: none;"> <!-- Asegura que esté oculto inicialmente -->
         <div class="modal-content">
             <h2>Editar Película</h2>
             <form method="post" enctype="multipart/form-data">
@@ -101,7 +122,7 @@ $peliculas = obtenerPeliculas();
                 <input type="number" name="duracion" id="duracion" placeholder="Duración" required>
                 <input type="text" name="clasificacion" id="clasificacion" placeholder="Clasificación" required>
                 <input type="text" name="genero" id="genero" placeholder="Género" required>
-                <input type="file" name="imagen" accept="image/*">
+                <input type="file" name="imagen" accept="image/*" class="file-input">
                 <button type="submit" name="editar">Guardar Cambios</button>
                 <button type="button" onclick="cerrarModal()">Cancelar</button>
             </form>
@@ -120,12 +141,39 @@ $peliculas = obtenerPeliculas();
             document.getElementById('clasificacion').value = peliculaSeleccionada.clasificacion;
             document.getElementById('genero').value = peliculaSeleccionada.genero;
 
+            // Muestra el modal
             document.getElementById('modal').style.display = 'flex';
         }
 
         function cerrarModal() {
+            // Oculta el modal
             document.getElementById('modal').style.display = 'none';
         }
+        
+        function confirmDelete(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar esta película?')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.style.display = 'none';
+
+                const inputId = document.createElement('input');
+                inputId.type = 'hidden';
+                inputId.name = 'id_pelicula';
+                inputId.value = id;
+
+                const deleteAction = document.createElement('input');
+                deleteAction.type = 'hidden';
+                deleteAction.name = 'eliminar';
+                deleteAction.value = '1';
+
+                form.appendChild(inputId);
+                form.appendChild(deleteAction);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
     </script>
+
+
 </body>
 </html>
