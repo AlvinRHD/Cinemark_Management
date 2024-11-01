@@ -2,7 +2,7 @@
 include_once '../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $con = new mysqli("localhost", "root", "witty", "cinemark_db");
+    $con = new mysqli("localhost", "root", "", "cinemark_db");
     $fecha_inicio = isset($_POST["fecha_inicio"]) ? $_POST["fecha_inicio"] : "";
     $fecha_fin = isset($_POST["fecha_fin"]) ? $_POST["fecha_fin"] : "";
 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gráfico de Asistentes</title>
+  <title>Gráfico de Asistencias</title>
 </head>
 <body>
   <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Generación del gráfico con los datos obtenidos de la consulta
     Highcharts.chart('container', {
         title: {
-            text: 'Cantidad de asistentes al cine por día',
+            text: 'Cantidad de asistencias al cine por día',
             align: 'left'
         },
         subtitle: {
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         },
         series: [{
-            name: 'Asistentes',
+            name: 'Asistencias',
             data: [<?php echo implode(",", $data); ?>] // Corrección aplicada aquí
         }],
         responsive: {

@@ -2,7 +2,7 @@
 
 $server='localhost';
 $user = 'root';
-$pass = '291866Rc';
+$pass = '';
 $db = 'cinemark_db';
 
 $conexion = new mysqli($server, $user, $pass, $db);
