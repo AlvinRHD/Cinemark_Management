@@ -1,6 +1,16 @@
 <?php
 include_once '../config.php';
 
+session_start();
+
+
+// Verifica si la sesión existe y si el usuario está autenticado
+if (!isset($_SESSION['id_usuario'])) {
+    // Si no está autenticado, redirige al formulario de inicio de sesión
+    header("Location: ../auth/login.php"); // Cambia 'login.php' por la ruta de tu formulario de inicio de sesión
+    exit();}
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $con = new mysqli("localhost", "root", "witty", "cinemark_db");
     $fecha_inicio = isset($_POST["fecha_inicio"]) ? $_POST["fecha_inicio"] : "";

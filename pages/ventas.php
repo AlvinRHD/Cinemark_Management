@@ -2,6 +2,16 @@
 include_once '../config.php';
 include_once '../functions/gestionar.php';
 
+session_start();
+
+
+// Verifica si la sesión existe y si el usuario está autenticado
+if (!isset($_SESSION['id_usuario'])) {
+    // Si no está autenticado, redirige al formulario de inicio de sesión
+    header("Location: ../auth/login.php"); // Cambia 'login.php' por la ruta de tu formulario de inicio de sesión
+    exit();}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_funcion = $_POST['id_funcion'];
     

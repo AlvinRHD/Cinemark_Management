@@ -272,7 +272,7 @@ function procesarVenta($id_funcion, $asientosSeleccionados, $precioTotal) {
     $stmt->close();
 
     // Confirmación de compra exitosa
-    echo "<script>alert('Compra realizada con éxito.'); window.location.href = 'pagina_de_exito.php';</script>";
+    echo "<script>alert('Compra realizada con éxito.'); window.location.href = 'ventas.php';</script>";
     return true;
 }
 

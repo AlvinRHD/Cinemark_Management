@@ -1,8 +1,20 @@
 <?php
+
+
+
+
 include_once 'config.php';
 include_once 'functions/gestionar.php';
 
 session_start();
+
+
+// Verifica si la sesión existe y si el usuario está autenticado
+if (!isset($_SESSION['id_usuario'])) {
+    // Si no está autenticado, redirige al formulario de inicio de sesión
+    header("Location: auth/login.php"); // Cambia 'login.php' por la ruta de tu formulario de inicio de sesión
+    exit();}
+
 
 // Obtener funciones de la semana actual
 $funcionesSemana = obtenerFuncionesSemanaActual();
@@ -103,6 +115,6 @@ $funcionesSemana = obtenerFuncionesSemanaActual();
     <!-- SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="js/app.js"></script>
+    
 </body>
 </html>
