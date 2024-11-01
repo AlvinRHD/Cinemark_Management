@@ -21,18 +21,36 @@ if (!isset($_SESSION['id_usuario'])) {
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/grid.css">
+  <link rel="stylesheet" href="style.css">
   <title>Gráfico de Asistentes al Cine</title>
 </head>
 
 <body>
+  <!-- Header con el botón de inicio -->
+  <header style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+    <h1 style="margin: 0;">Análisis de Asistencia al Cine</h1>
+    <button onclick="window.location.href='../index.php'" style="background-color: #8a6f97; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+      Inicio
+    </button>
+  </header>
+
+  <!-- Formulario de selección de fechas -->
   <form>
     <input type="date" name="fecha_inicio" id="fecha_inicio" placeholder="Fecha de inicio">
     <input type="date" name="fecha_fin" id="fecha_fin" placeholder="Fecha de fin">
   </form>
 
+  <!-- Contenedor del gráfico -->
   <figure class="highcharts-figure">
     <div id="container"></div>
   </figure>
+
+  <!-- Botón para descargar PDF -->
+  <button id="descargar_pdf" style="width: 100%; max-width: 400px; padding: 12px; margin-top: 15px; background-color: #8a6f97; color: #ffffff; border: none; border-radius: 4px; cursor: pointer;">
+    Descargar Análisis en PDF
+  </button>
 
   <script>
     $(document).ready(function () {
@@ -48,13 +66,21 @@ if (!isset($_SESSION['id_usuario'])) {
             type: 'POST',
             data: { fecha_inicio: fechaInicio, fecha_fin: fechaFin },
             success: function (response) {
-              // Insertar el nuevo gráfico en el contenedor
               $('#container').html(response);
-            },
-            error: function() {
-              alert("Error al cargar el gráfico. Verifica los datos o revisa la conexión.");
             }
           });
+        }
+      });
+
+      // Evento para generar PDF al hacer clic en el botón
+      $('#descargar_pdf').on('click', function () {
+        var fechaInicio = $('#fecha_inicio').val();
+        var fechaFin = $('#fecha_fin').val();
+
+        if (fechaInicio && fechaFin) {
+          window.location.href = 'generar_pdf.php?fecha_inicio=' + fechaInicio + '&fecha_fin=' + fechaFin;
+        } else {
+          alert('Por favor selecciona ambas fechas para generar el análisis en PDF.');
         }
       });
     });

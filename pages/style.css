@@ -1,46 +1,157 @@
-.highcharts-figure,
-.highcharts-data-table table {
-  min-width: 310px;
-  max-width: 800px;
-  margin: 1em auto;
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  color: #ffffff;
+  background-color: #1d1d1d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin: 0;
 }
 
-#container {
-  height: 400px;
-}
-
-.highcharts-data-table table {
-  font-family: Verdana, sans-serif;
-  border-collapse: collapse;
-  border: 1px solid #ebebeb;
-  margin: 10px auto;
-  text-align: center;
+/* Botón de regreso al inicio */
+.back-button {
+  text-align: left;
   width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+.back-button .btn-hover {
+  background-color: #757575;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+.back-button .btn-hover:hover {
+  background-color: #ff3300;
+}
+
+/* Título principal */
+h1, h2 {
+  color: #ffffff;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+h1 { font-size: 36px; }
+h2 { font-size: 28px; }
+
+/* Contenedor del formulario */
+form {
+  background-color: rgba(255, 123, 0, 0.3);
+  padding: 30px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Estilos de los campos de entrada */
+form input[type="text"], form input[type="email"], form input[type="password"], form select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 4px;
+  background-color: #ff5e00;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Botón del formulario */
+form button {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  background-color: #757575;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+form button:hover {
+  background-color: #ff3300;
+}
+
+/* Lista de usuarios */
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 700px;
+  width: 100%;
+}
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 123, 0, 0.7);
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+}
+.user-card:hover { transform: translateY(-3px); }
+.user-info p { color: #ffffff; }
+.user-info .user-name { font-size: 18px; font-weight: bold; }
+.user-info .user-email, .user-info .user-role { font-size: 14px; }
+
+/* Botones de acción */
+.user-actions { display: flex; gap: 10px; }
+.edit-button, .delete-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.edit-button { background-color: #fffd80; color: #000000; }
+.delete-button { background-color: #f34039; color: #ffffff; }
+.edit-button:hover { background-color: #fffb00; }
+.delete-button:hover { background-color: #cc0700; }
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background-color: #1d1d1d;
+  padding: 20px;
+  padding-left: 80px;
+  border-radius: 8px;
+  width: 90%;
   max-width: 500px;
 }
-
-.highcharts-data-table caption {
-  padding: 1em 0;
-  font-size: 1.2em;
-  color: #555;
+.modal-content h2 { margin-top: 0; margin-right: 60px; }
+.modal-content input, .modal-content select, .modal-content button {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
 }
+.modal-content button { width: 48%; }
 
-.highcharts-data-table th {
-  font-weight: 600;
-  padding: 0.5em;
-}
+.letra { color: #ff5e00; }
 
-.highcharts-data-table td,
-.highcharts-data-table th,
-.highcharts-data-table caption {
-  padding: 0.5em;
-}
-
-.highcharts-data-table thead tr,
-.highcharts-data-table tr:nth-child(even) {
-  background: #f8f8f8;
-}
-
-.highcharts-data-table tr:hover {
-  background: #f1f7ff;
+.highcharts-figure,
+#container {
+  width: 90%;
+  max-width: 1000px;
+  height: 600px; /* Aumentar el alto */
+  margin: 20px auto;
 }
