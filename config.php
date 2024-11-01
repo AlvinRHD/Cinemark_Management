@@ -3,7 +3,7 @@
 $server='localhost';
 $user = 'root';
 
-$pass = '';
+$pass = 'witty';
 
 $db = 'cinemark_db';
 
